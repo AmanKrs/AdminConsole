@@ -1,8 +1,8 @@
 import React from "react";
 import Sidenav from "../Sidenav/Sidenav";
-import Content from "../Content/Content";
 import Header from "../Header/Header";
 import "./layout.css";
+import { Outlet } from "react-router-dom";
 
 export default function Layout() {
   return (
@@ -10,7 +10,7 @@ export default function Layout() {
       <Header />
       <div className="main-layout">
         <Sidenav />
-        <Content />
+        <Outlet />
       </div>
     </div>
   );

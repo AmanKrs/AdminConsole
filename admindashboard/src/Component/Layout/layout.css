@@ -1,0 +1,5 @@
+.main-layout {
+  display: flex;
+  position: relative;
+  margin-top: 60px;
+}

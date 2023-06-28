@@ -1,17 +1,17 @@
-import Header from "./Component/Header/Header";
-import Sidenav from "./Component/Sidenav/Sidenav";
-import Content from "./Component/Content/Content";
 import Login from "./Pages/Login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import ProtectedLayout from "./Component/ProtectedLayout";
+import Layout from "./Component/Layout/Layout";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ProtectedLayout Chlidren={Header} />} />
+          <Route element={<ProtectedLayout />}>
+            <Route path="/" element={<Layout />}></Route>
+          </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>

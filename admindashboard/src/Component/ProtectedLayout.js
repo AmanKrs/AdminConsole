@@ -1,9 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-
-import { Navigate } from "react-router-dom";
-
-export default function ProtectedLayout({ Chlidren }) {
+import { Navigate, Outlet } from "react-router-dom";
+export default function ProtectedLayout() {
   const [logged, setLogged] = useState(true);
 
   useEffect(() => {
@@ -12,5 +10,5 @@ export default function ProtectedLayout({ Chlidren }) {
     }
   }, []);
 
-  return <div>{logged ? <Chlidren /> : <Navigate to="/login" />}</div>;
+  return <div>{logged ? <Outlet /> : <Navigate to="/login" />}</div>;
 }

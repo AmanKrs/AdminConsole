@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import "./sidenav.css";
+import { Link } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -26,11 +27,38 @@ export default function Sidenav() {
           <ul
             className={isExpanded ? "nav-sub-items action" : "nav-sub-items "}
           >
-            <li>Dashboard</li>
-            <li>Analays</li>
+            <Link to="/">
+              <li>Dashboard</li>
+            </Link>
+            <Link to="/">
+              <li>Analysis</li>
+            </Link>
           </ul>
         </li>
       </ul>
+      <ul className="nav-item">
+        <li>
+          <span onClick={handleExpand}>
+            <HomeIcon />
+            <span style={{ font: "caption" }}>Home</span>
+            <ExpandMoreIcon />
+          </span>
+          <ul
+            className={isExpanded ? "nav-sub-items action" : "nav-sub-items "}
+          >
+            <Link to="/addproduct">
+              <li>Add Product</li>
+            </Link>
+            <Link to="/productlist">
+              <li>Product List</li>
+            </Link>
+            <Link to="/edit-product">
+              <li>Edit Product</li>
+            </Link>
+          </ul>
+        </li>
+      </ul>
+
       {/* <Accordion  sx={{ width: "80%", ml: "30px", borderRadius: "20px" }}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

@@ -1,0 +1,90 @@
+.dash-head {
+  padding: 25px;
+  height: 150px;
+  border-radius: 10px;
+  display: flex;
+  box-shadow: 0 0 5px grey;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+.dash-head-item {
+  padding-left: 25px;
+  border-right: 1px solid #e8e8e8;
+  width: 25%;
+}
+.last-item {
+  border: none;
+}
+.value {
+  font-size: 24px;
+  color: #6e39cb;
+  font-weight: 500;
+  margin-bottom: 15px;
+  margin-top: 9px;
+  margin-left: 6px;
+}
+.date {
+  color: #5e5c5c;
+  font-size: 14px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+}
+
+.dash-content {
+  height: 300px;
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.dash-content-main {
+  width: 72%;
+  padding: 2px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 5px grey;
+}
+
+.chart-head {
+  display: flex;
+  height: 20%;
+  justify-content: space-between;
+  margin: 0 25px;
+}
+.MuiToggleButtonGroup-root {
+  background-color: #e8e8e8;
+  border-radius: 10px !important;
+  border-style: none;
+  height: 35px !important;
+  align-items: center;
+}
+.MuiSelect-select {
+  margin: -5px !important;
+  border-style: none !important;
+  color: #6e39cb !important;
+  background-color: #e8e8e8;
+}
+
+.MuiToggleButton-primary {
+  background-color: #e8e8e8;
+  border-style: none !important;
+  padding-left: 6px !important;
+  margin: 2px !important;
+  height: 25px !important;
+  border-radius: 10px !important;
+  text-transform: capitalize !important;
+}
+.Mui-selected {
+  background-color: #fff !important;
+  font-size: 13px !important;
+  color: #6e39cb !important;
+  font-weight: 600 !important;
+}
+.dash-content-side {
+  width: 25%;
+  padding: 2px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 5px grey;
+}

@@ -4,6 +4,9 @@ import "./App.css";
 import ProtectedLayout from "./Component/ProtectedLayout";
 import Layout from "./Component/Layout/Layout";
 import Home from "./Pages/Home/Home";
+import NewProduct from "./Pages/ProductApp/CreateProduct/NewProduct";
+import ProductList from "./Pages/ProductApp/ProductList/ProductList";
+import EditProduct from "./Pages/ProductApp/EditProduct/EditProduct";
 
 function App() {
   return (
@@ -12,7 +15,10 @@ function App() {
         <Routes>
           <Route element={<ProtectedLayout />}>
             <Route path="/" element={<Layout />}>
-              <Route path="/home" element={<Home />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/addproduct" element={<NewProduct />} />
+              <Route path="/productlist" element={<ProductList />} />
+              <Route path="/edit-product" element={<EditProduct />} />
             </Route>
           </Route>
           <Route path="/login" element={<Login />} />

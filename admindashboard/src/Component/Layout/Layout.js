@@ -10,7 +10,9 @@ export default function Layout() {
       <Header />
       <div className="main-layout">
         <Sidenav />
-        <Outlet />
+        <div className="outlet-layout" >
+          <Outlet />
+        </div>
       </div>
     </div>
   );

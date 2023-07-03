@@ -15,18 +15,44 @@ import Loading from "../../../Component/Loading/Loading";
 export default function ProductList() {
   const [product, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [itemsPerPage, setItemPerPage] = useState(0);
+  const [displayProduct, setDisplayProduct] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const navigate = useNavigate();
   const getProducts = async () => {
     const result = await axios.get("https://fakestoreapi.com/products");
-
     setProducts(result.data);
     setLoading(false);
   };
   useEffect(() => {
     getProducts();
   }, []);
+
+  const totalProductItem = product.length;
+  let noOfPage = 5;
+
+  useEffect(() => {
+    setItemPerPage(totalProductItem / noOfPage);
+    setDisplayProduct(product.slice(currentIndex, itemsPerPage));
+  }, [product]);
+
   console.log(product);
+  var endIndex;
+  
+  const handlePage = () => {
+    endIndex = currentIndex + itemsPerPage;
+    console.log("next", currentIndex, endIndex);
+    setDisplayProduct(product.slice(currentIndex, endIndex));
+    setCurrentIndex(endIndex);
+  };
+
+  const handlePagePrev = () => {
+    endIndex = currentIndex - itemsPerPage;
+    console.log("prev", currentIndex, endIndex);
+    setDisplayProduct(product.slice(endIndex, currentIndex));
+    setCurrentIndex(endIndex);
+  };
 
   const navigateEdit = (item) => {
     navigate("/edit-product", { state: item });
@@ -52,7 +78,7 @@ export default function ProductList() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {product.map((row) => (
+                {displayProduct.map((row) => (
                   <TableRow
                     key={row.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -84,6 +110,27 @@ export default function ProductList() {
           </TableContainer>
         </>
       )}
+      <div>
+        {/* {" "}
+        <span
+          onClick={() => {
+            setDisplayProduct(product.slice(0, 10));
+          }}
+        >
+          1
+        </span>
+        <span
+          onClick={() => {
+            setDisplayProduct(product.slice(10, 20));
+          }}
+        >
+          2
+        </span> */}
+        <button onClick={handlePagePrev}>Prev</button>
+        <button onClick={handlePage}>Next</button>
+
+        <button>3</button>
+      </div>
     </div>
   );
 }

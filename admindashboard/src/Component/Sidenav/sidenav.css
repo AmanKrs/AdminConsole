@@ -10,7 +10,7 @@
   margin-top: 10px;
 }
 .nav-item li span {
-  background-color: #b288fa;
+  background-color: #9d71e7;
   padding: 10px;
   width: 80%;
   cursor: pointer;
@@ -28,4 +28,12 @@
 .action {
   display: block;
   padding-left: 15px;
+}
+
+a{
+  text-decoration: none;
+}
+
+.expandIcon{
+  transform: rotate(180deg);
 }

@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import "./sidenav.css";
-import { Link } from "react-router-dom";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
+import { NavLink } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function Sidenav() {
   const [isExpanded, setExpanded] = useState(false);
+  const [isExpanded2, setExpanded2] = useState(false);
 
   const handleExpand = () => {
     setExpanded(!isExpanded);
+    setExpanded2(false);
   };
 
+  const handleExpand2 = () => {
+    setExpanded2(!isExpanded2);
+    setExpanded(false);
+  };
   return (
     <div className="side-content">
       <ul className="nav-item">
@@ -22,66 +24,75 @@ export default function Sidenav() {
           <span onClick={handleExpand}>
             <HomeIcon />
             <span style={{ font: "caption" }}>Home</span>
-            <ExpandMoreIcon />
+            <div style={{transform:isExpanded ? "rotate(180deg)":"rotate(0deg)"}}><ExpandMoreIcon /></div>
           </span>
           <ul
             className={isExpanded ? "nav-sub-items action" : "nav-sub-items "}
           >
-            <Link to="/">
+            <NavLink
+              to="/"
+              style={({ isActive, isPending }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isActive ? "#6e39cb" : "#9766eb",
+                };
+              }}
+            >
               <li>Dashboard</li>
-            </Link>
-            <Link to="/">
-              <li>Analysis</li>
-            </Link>
+            </NavLink>
+
+            <NavLink
+              to="/orderlist"
+              style={({ isActive, isPending }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isActive ? "#6e39cb" : "#9766eb",
+                };
+              }}
+            >
+              <li>Order List</li>
+            </NavLink>
           </ul>
         </li>
       </ul>
       <ul className="nav-item">
         <li>
-          <span onClick={handleExpand}>
+          <span onClick={handleExpand2}>
             <HomeIcon />
             <span style={{ font: "caption" }}>Home</span>
-            <ExpandMoreIcon />
+            <div style={{transform:isExpanded2 ? "rotate(180deg)":"rotate(0deg)"}}><ExpandMoreIcon /></div>
           </span>
           <ul
-            className={isExpanded ? "nav-sub-items action" : "nav-sub-items "}
+            className={isExpanded2 ? "nav-sub-items action" : "nav-sub-items "}
           >
-            <Link to="/addproduct">
+            <NavLink
+              to="/addproduct"
+              style={({ isActive, isPending }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isActive ? "#6e39cb" : "#9766eb",
+                };
+              }}
+            >
               <li>Add Product</li>
-            </Link>
-            <Link to="/productlist">
+            </NavLink>
+
+            <NavLink
+              to="/productlist"
+              style={({ isActive, isPending }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isActive ? "#6e39cb" : "#9766eb",
+                };
+              }}
+            >
               <li>Product List</li>
-            </Link>
-            <Link to="/edit-product">
-              <li>Edit Product</li>
-            </Link>
+            </NavLink>
+
+            
           </ul>
         </li>
       </ul>
-
-      {/* <Accordion  sx={{ width: "80%", ml: "30px", borderRadius: "20px" }}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          onClick={handleExpand}
-          
-          sx={{ backgroundColor: "#b288fa", borderRadius: "20px" }}
-        >
-          <span className="accrdnspan">
-            <HomeIcon />
-            <span style={{ font: "caption" }}>Home</span>
-          </span>
-        </AccordionSummary>
-        <AccordionDetails
-          sx={{ width: "80%", ml: "20px", borderRadius: "20px" }}
-        >
-          <ul
-            className={isExpanded ? "nav-sub-items action" : "nav-sub-items "}
-          >
-            <li style={{ backgroundColor: "#b288fa" }}>Dashboard</li>
-            <li>Analays</li>
-          </ul>
-        </AccordionDetails>
-      </Accordion> */}
     </div>
   );
 }

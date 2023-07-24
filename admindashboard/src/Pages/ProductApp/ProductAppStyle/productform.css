@@ -62,3 +62,11 @@ h3 {
 .edit-p-list {
   color: #6e39cb;
 }
+.pagination {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-infoform {
+  padding-bottom: 0px;
+}

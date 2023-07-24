@@ -3,7 +3,15 @@ import Avatar from "@mui/material/Avatar";
 
 import "./header.css";
 
-export default function Header() {
+export default function Header(props) {
+  const { searchItem, setSearchItem } = props;
+
+  const handleSearch = (e)=>{
+    setSearchItem(e.target.value)
+    console.log(searchItem)
+  }
+  console.log(searchItem)
+  
   return (
     <div>
       <nav className="head-container">
@@ -13,6 +21,7 @@ export default function Header() {
             className="search-input"
             type="text"
             placeholder="Search for anything...."
+            onChange={handleSearch}
           />
         </div>
         <div className="usernav">

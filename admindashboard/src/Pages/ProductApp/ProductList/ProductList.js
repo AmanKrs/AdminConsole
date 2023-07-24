@@ -7,56 +7,80 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import "../ProductAppStyle/productform.css";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import Loading from "../../../Component/Loading/Loading";
 
 export default function ProductList() {
+  const { searchItem } = useOutletContext();
+  const [fullData, setData] = useState();
   const [product, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [itemsPerPage, setItemPerPage] = useState(0);
-  const [displayProduct, setDisplayProduct] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const navigate = useNavigate();
+
   const getProducts = async () => {
-    const result = await axios.get("https://fakestoreapi.com/products");
+    const result = await axios.get("http://localhost:8084/getdata");
     setProducts(result.data);
+    setData(result.data);
     setLoading(false);
   };
+
   useEffect(() => {
     getProducts();
   }, []);
 
-  const totalProductItem = product.length;
-  let noOfPage = 5;
-
-  useEffect(() => {
-    setItemPerPage(totalProductItem / noOfPage);
-    setDisplayProduct(product.slice(currentIndex, itemsPerPage));
-  }, [product]);
-
   console.log(product);
-  var endIndex;
-  
-  const handlePage = () => {
-    endIndex = currentIndex + itemsPerPage;
-    console.log("next", currentIndex, endIndex);
-    setDisplayProduct(product.slice(currentIndex, endIndex));
-    setCurrentIndex(endIndex);
-  };
-
-  const handlePagePrev = () => {
-    endIndex = currentIndex - itemsPerPage;
-    console.log("prev", currentIndex, endIndex);
-    setDisplayProduct(product.slice(endIndex, currentIndex));
-    setCurrentIndex(endIndex);
-  };
+  console.log("productlist search", searchItem);
+  let pageNo = Math.ceil(product.length / itemsPerPage);
+  let endIndex = currentIndex * itemsPerPage;
+  const displayProduct = product.slice(
+    (currentIndex - 1) * itemsPerPage,
+    endIndex
+  );
+  const arr = Array.from({ length: pageNo }, (_, i) => i + 1);
 
   const navigateEdit = (item) => {
     navigate("/edit-product", { state: item });
   };
+
+  const handlePageNxt = () => {
+    console.log(pageNo);
+    if (currentIndex < pageNo) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const handlePagePrev = () => {
+    if (currentIndex > 1) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  useEffect(() => {
+    if (searchItem == "") {
+      setProducts(fullData);
+    } else {
+      setCurrentIndex(1);
+      setProducts(
+        displayProduct.filter((elem) => {
+          for (let key in elem) {
+            if (elem[key].toString().toLowerCase().includes(searchItem)) {
+              return elem;
+            }
+          }
+        })
+      );
+
+      // setProducts(
+      //   displayItems.filter((elem) => {
+      //     return elem.title.toString().toLowerCase().includes(searchItem);
+      //   })
+      // );
+    }
+  }, [searchItem]);
 
   return (
     <div>
@@ -77,8 +101,9 @@ export default function ProductList() {
                   <TableCell align="center">Edit</TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
-                {displayProduct.map((row) => (
+                {displayProduct?.map((row) => (
                   <TableRow
                     key={row.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -107,29 +132,46 @@ export default function ProductList() {
                 ))}
               </TableBody>
             </Table>
+            {product.length == 0 && searchItem !== null && (
+              <>
+                <h1>Not Found</h1>
+              </>
+            )}
+            {product.length == 0 && searchItem == null && (
+              <>
+                <Loading />
+              </>
+            )}
           </TableContainer>
         </>
       )}
-      <div>
-        {/* {" "}
-        <span
-          onClick={() => {
-            setDisplayProduct(product.slice(0, 10));
-          }}
-        >
-          1
-        </span>
-        <span
-          onClick={() => {
-            setDisplayProduct(product.slice(10, 20));
-          }}
-        >
-          2
-        </span> */}
-        <button onClick={handlePagePrev}>Prev</button>
-        <button onClick={handlePage}>Next</button>
-
-        <button>3</button>
+      <div className="pagination">
+        <div>
+          <select onChange={(e) => setItemsPerPage(e.target.value)}>
+            <option value={5}></option>
+            <option value={2}>2</option>
+            <option value={4}>4</option>
+            <option value={6}>6</option>
+          </select>
+          <em>Set No. Of Items Per Page</em>
+        </div>
+        <div>
+          <button onClick={handlePagePrev}>Prev</button>
+          {arr.map((elem) => {
+            return (
+              <>
+                <span
+                  onClick={() => {
+                    setCurrentIndex(elem);
+                  }}
+                >
+                  <button>{elem}</button>&nbsp;
+                </span>
+              </>
+            );
+          })}
+          <button onClick={handlePageNxt}>Next</button>
+        </div>
       </div>
     </div>
   );

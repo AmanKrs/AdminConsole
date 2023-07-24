@@ -7,6 +7,9 @@ import Home from "./Pages/Home/Home";
 import NewProduct from "./Pages/ProductApp/CreateProduct/NewProduct";
 import ProductList from "./Pages/ProductApp/ProductList/ProductList";
 import EditProduct from "./Pages/ProductApp/EditProduct/EditProduct";
+import OrderList from "./Pages/OrderList/OrderList";
+import OrderSummary from "./Pages/OrderSummary/OrderSummary";
+
 
 function App() {
   return (
@@ -16,9 +19,11 @@ function App() {
           <Route element={<ProtectedLayout />}>
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
+              <Route path="/orderlist" element={<OrderList />} />
               <Route path="/addproduct" element={<NewProduct />} />
               <Route path="/productlist" element={<ProductList />} />
               <Route path="/edit-product" element={<EditProduct />} />
+              <Route path="/order-summary" element={<OrderSummary />} />
             </Route>
           </Route>
           <Route path="/login" element={<Login />} />

@@ -59,7 +59,7 @@ export default function OrderList() {
   const getProducts = () => {
     // const result = await axios.get("http://localhost:8084/getdata");
     setProducts(orders);
-   
+
     setData(orders);
     setLoading(false);
   };
@@ -68,7 +68,7 @@ export default function OrderList() {
     getProducts();
   });
 
-  console.log("productlist ",product);
+  console.log("productlist ", product);
   console.log("productlist search", searchItem);
   let pageNo = Math.ceil(product.length / itemsPerPage);
   let endIndex = currentIndex * itemsPerPage;
@@ -145,7 +145,7 @@ export default function OrderList() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     onClick={() => {
                       navigateOrderSummary(row);
-                        }}
+                    }}
                   >
                     <TableCell component="th" scope="row">
                       {/* <img

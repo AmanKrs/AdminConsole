@@ -1,8 +1,8 @@
 const express = require("express");
 var mongoose =require("mongoose")
 
-const Users =require("./Schema/UserSchema")
-const orderList = require("./Schema/OrderListSchema")
+const Users =require("../Schema/UserSchema")
+const orderList = require("../Schema/OrderListSchema")
 const app = express();
 
 const url = "mongodb+srv://AmanKrs:mongoDB20@admindashboarddb.duuxaeb.mongodb.net/UserData"

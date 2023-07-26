@@ -22,7 +22,7 @@ export default function ProductList() {
   const navigate = useNavigate();
 
   const getProducts = async () => {
-    const result = await axios.get("http://localhost:8084/getdata");
+    const result = await axios.get("http://localhost:8082/getproductlist");
     setProducts(result.data);
     setData(result.data);
     setLoading(false);
@@ -30,7 +30,7 @@ export default function ProductList() {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  });
 
   console.log(product);
   console.log("productlist search", searchItem);

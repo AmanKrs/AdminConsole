@@ -3,10 +3,42 @@ import Box from "@mui/material/Box";
 import "./ordersummary.css";
 import card from "../../favicon.ico";
 import { useLocation } from "react-router-dom";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function OrderSummary() {
   const data = useLocation();
   const { state } = data;
+
+  const downloadInvoice = () => {
+   // document.getElementById("myinvoice").style.display = "block";
+    html2canvas(document.getElementById("invoice"), {
+      scale: 1,
+    }).then((canvas) => {
+      var imgData = canvas.toDataURL("image/png");
+      var doc = new jsPDF();
+      doc.addImage(imgData, "PNG", 10, 10);
+      doc.save("invoice.pdf");
+     // document.getElementById("myinvoice").style.display = "none";
+    }).catch((e) => {
+      console.error(e.message); // "oh, no!"
+    });
+
+    // html2canvas(document.getElementById("summary"), {
+    //   // width: 1440,
+    //   // height: 1200,
+    //   scale: 1,
+    // }).then((canvas) => {
+    //   var imgData = canvas.toDataURL("image/png");
+    //   var doc = new jsPDF();
+    //   doc.addImage(imgData, "PNG", 10, 10);
+    //   doc.save("summary.pdf");
+    // }).catch((e) => {
+    //   console.error(e.message); // "oh, no!"
+    // });
+  }
+
+
 
   console.log(state);
   return (
@@ -42,16 +74,14 @@ export default function OrderSummary() {
               <div>
                 <button
                   className="invoice-btn"
-                  onClick={() => {
-                    console.log("odersummary");
-                  }}
+                  onClick={downloadInvoice}
                 >
                   Invoice
                 </button>
               </div>
             </Box>
           </div>
-          <div className="DetailBox">
+          <div id="summary" className="DetailBox">
             <Box className="ProdBox">
               <h3>Product Details</h3>
               <Box
@@ -75,11 +105,11 @@ export default function OrderSummary() {
                 </div>
               </Box>
             </Box>
-            <Box className="BillBox">
+            <Box  id="invoice" className="BillBox">
               <h3>Billing Information Details</h3>
 
               <Box
-                id="invoice"
+                
                 sx={{
                   border: "1px solid #e8e8e8",
                   width: "100%",

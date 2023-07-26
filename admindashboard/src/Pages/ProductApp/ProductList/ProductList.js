@@ -68,6 +68,7 @@ export default function ProductList() {
         displayProduct.filter((elem) => {
           for (let key in elem) {
             if (elem[key].toString().toLowerCase().includes(searchItem)) {
+              console.log("intial",elem)
               return elem;
             }
           }

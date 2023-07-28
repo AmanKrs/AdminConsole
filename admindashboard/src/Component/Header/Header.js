@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
+import { decodeToken } from "react-jwt";
 
 import "./header.css";
 
 export default function Header(props) {
   const { searchItem, setSearchItem } = props;
+  const [userInfo, setUserInfo] = useState({});
 
-  const handleSearch = (e)=>{
-    setSearchItem(e.target.value)
-    console.log(searchItem)
-  }
-  console.log(searchItem)
-  
+  const handleSearch = (e) => {
+    setSearchItem(e.target.value);
+    console.log(searchItem);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const data = decodeToken(token);
+    setUserInfo(data);
+  }, []);
+
   return (
     <div>
       <nav className="head-container">
@@ -25,10 +32,12 @@ export default function Header(props) {
           />
         </div>
         <div className="usernav">
-          <Avatar></Avatar>
+          <Avatar style={{ marginLeft: "5px" }}></Avatar>
           <div className="usernav-details">
-            <p>UserName</p>
-            <p>Email@xc.com</p>
+            <p>
+              {userInfo.firstName} {userInfo.lastName}
+            </p>
+            <p>{userInfo.email}</p>
           </div>
         </div>
       </nav>

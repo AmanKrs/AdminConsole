@@ -26,11 +26,11 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    
     try {
       const result = await axios.post("http://localhost:8082/login", formData);
       if (result.status == 200) {
-        localStorage.setItem("token", result.data);
+        console.log(result.data);
+        localStorage.setItem("token", result.data.token);
         navigate("/");
       }
     } catch (e) {

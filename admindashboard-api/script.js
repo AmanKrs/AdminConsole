@@ -1,25 +1,26 @@
-var express = require("express")
-var app = express();
-var dotenv =require("dotenv")
+const express = require("express");
+const app = express();
+const jwt =require("jsonwebtoken");
+const dotenv = require("dotenv");
 dotenv.config();
-PORT= process.env.API_PORT
+PORT = process.env.API_PORT;
 
 app.use(express.json());
 
 const cors = require("cors");
 app.use(cors());
 
-app.listen(PORT, (err)=>{
-  if(err){
-    console.log("Server can't start, Facing some Internal Issue")
-    clg(err)
+
+
+app.listen(PORT, (err) => {
+  if (err) {
+    console.log("Server can't start, Facing some Internal Issue");
+    clg(err);
   }
-  console.log("server started @"+ PORT)
+  console.log("server started @" + PORT);
 });
 
-
-app.get("/getproductlist", (req,res)=>{
-
+app.get("/getproductlist", (req, res) => {
   res.send([
     {
       id: 1,
@@ -228,4 +229,30 @@ app.get("/getproductlist", (req,res)=>{
       rating: { rate: 3.6, count: 145 },
     },
   ]);
+});
+
+const data = require("./database");
+
+
+app.post("/login", (req, res) => {
+  console.log(req.body);
+  const { userId, passwd } = req.body;
+  console.log(passwd);
+
+const userData = data.userInfo
+console.log(userData)
+
+  if (userId == data.user.username) {
+    if (passwd == data.user.password) {
+
+      const token = jwt.sign(userData, "secret");
+      console.log(token)
+      res.status(200).send({ token: token });
+    } else {
+      res.status(401).send({ msg: "password is incorrect" });
+    }
+  } else {
+    res.status(403).send({ msg: "Please register user doesn't exist" });
+  }
+  res.end();
 });

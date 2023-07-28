@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./login.css";
 
 export default function Login() {
@@ -24,18 +25,22 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    if (formData.username == "admin") {
-      if (formData.password == "admin") {
-        localStorage.setItem("token", "xyz2394");
+  const handleSubmit = async () => {
+    
+    try {
+      const result = await axios.post("http://localhost:8082/login", formData);
+      if (result.status == 200) {
+        localStorage.setItem("token", result.data);
         navigate("/");
-      } else {
-        setErrorMsg("username or password is incorrect");
       }
-    } else {
-      setErrorMsg("No user found");
+    } catch (e) {
+      console.log("catch", e);
+      if (e.response.status == 401) {
+        setErrorMsg("username or password is incorrect");
+      } else {
+        setErrorMsg("No user found");
+      }
     }
-    console.log(formData.username);
   };
 
   return (
@@ -78,7 +83,7 @@ export default function Login() {
                   required
                   size="small"
                   label="User Name"
-                  name="username"
+                  name="userId"
                   onChange={handleChange}
                   autoFocus
                 />
@@ -87,7 +92,7 @@ export default function Login() {
                 <TextField
                   required
                   size="small"
-                  name="password"
+                  name="passwd"
                   label="Password"
                   type="password"
                   id="password"

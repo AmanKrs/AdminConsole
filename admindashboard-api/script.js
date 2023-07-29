@@ -257,10 +257,10 @@ app.post("/addproduct", (req, res) => {
   
 
   try {
-    const isvalid = jwt.verify(req.body.token, "secret");
+    const isvalid = jwt.verify(req.headers.authorization, "secret");
 
     if (isvalid) {
-      console.log(req.body);
+      console.log(req.headers.authorization);
       res.status(200).send({msg: "productadded"})
     }
   } catch (e) {

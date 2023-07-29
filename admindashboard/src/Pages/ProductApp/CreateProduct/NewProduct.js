@@ -9,6 +9,13 @@ import Typography from "@mui/material/Typography";
 import ProductForm from "./ProductForm";
 import ProductPricing from "./ProductPricing";
 import AddProductMedia from "./AddProductMedia";
+import axios from "axios";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const steps = ["Product Info", "Add Media", "Pricing"];
 
@@ -16,6 +23,9 @@ export default function NewProduct() {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
   const [productData, setProductData] = useState({});
+  const [productAdded, setProductAdded] = useState(false);
+  const [productAddedMsg, setProductAddedMsg] = useState();
+  const [errorMsg, setErrorMsg] = useState(false);
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -34,6 +44,43 @@ export default function NewProduct() {
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
+  };
+
+  const handleFinish = async () => {
+    console.log("ifblock", activeStep, steps.length);
+    if (activeStep === steps.length) {
+      try {
+        const result = await axios.post("http://localhost:8082/addproduct", {
+          productData,
+          token: localStorage.getItem("token"),
+        });
+        console.log(result.data.msg);
+        if (result.status == 200) {
+          setProductAddedMsg(result.data.msg);
+          setProductAdded(true);
+          console.log("afterproductAdded", productAdded);
+          setTimeout(() => {
+            setActiveStep(0);
+            setProductAdded(false);
+            setErrorMsg(false);
+          }, 1000);
+        }
+      } catch (e) {
+        if (e.response.status == 403) {
+          console.log("error", e.response.status);
+          setProductAdded(true);
+          setProductAddedMsg(e.response.data.msg);
+            setErrorMsg(true);
+
+            setTimeout(() => {
+              setActiveStep(0);
+            }, 1000);
+        }
+        console.log(e);
+      }
+    } else {
+      console.log(activeStep, steps.length);
+    }
   };
 
   const handleBack = () => {
@@ -59,9 +106,17 @@ export default function NewProduct() {
     setActiveStep(0);
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setProductAdded(false);
+  };
   return (
     <div>
       <h1 style={{ color: "#6e39cb" }}>New Product</h1>
+
       <Box sx={{ width: "80%", margin: "auto" }}>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
@@ -109,7 +164,21 @@ export default function NewProduct() {
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Box sx={{ flex: "1 1 auto" }} />
               <Button onClick={handleReset}>Reset</Button>
+              <Button onClick={handleFinish}>Finish</Button>
             </Box>
+            <Snackbar
+              open={productAdded}
+              autoHideDuration={6000}
+              onClose={handleClose}
+            >
+              <Alert
+                onClose={handleClose}
+                severity={errorMsg ? "error" : "success"}
+                sx={{ width: "100%" }}
+              >
+                {productAddedMsg}
+              </Alert>
+            </Snackbar>
           </Fragment>
         ) : (
           <Fragment>
@@ -130,7 +199,7 @@ export default function NewProduct() {
               )}
 
               <Button onClick={handleNext}>
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                {activeStep === steps.length - 1 ? "Confrim" : "Next"}
               </Button>
             </Box>
           </Fragment>

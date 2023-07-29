@@ -37,8 +37,10 @@ export default function Login() {
       console.log("catch", e);
       if (e.response.status == 401) {
         setErrorMsg("username or password is incorrect");
-      } else {
+      } else if (e.response.status == 403) {
         setErrorMsg("No user found");
+      } else {
+        alert("Something went worng");
       }
     }
   };

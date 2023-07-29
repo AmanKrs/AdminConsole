@@ -20,7 +20,7 @@ export default function ProductForm(props) {
           <input
             className="p-input-text"
             type="text"
-            name="p-name"
+            name="Name"
             onChange={handleProductFormdata}
           ></input>
         </div>
@@ -28,7 +28,7 @@ export default function ProductForm(props) {
           <label className="p-form-label">Weight</label>
           <input
             className="p-input-text"
-            name="p-weight"
+            name="Weight"
             type="text"
             onChange={handleProductFormdata}
           ></input>
@@ -39,7 +39,7 @@ export default function ProductForm(props) {
           <label className="p-form-label">Sizes</label>
           <select
             className="p-select-text"
-            name="p-size"
+            name="Size"
             onChange={handleProductFormdata}
           >
             <option>1</option>
@@ -51,7 +51,7 @@ export default function ProductForm(props) {
           <label className="p-form-label">Category</label>
           <select
             className="p-select-text"
-            name="p-category"
+            name="Category"
             onChange={handleProductFormdata}
           >
             <option>1</option>
@@ -65,7 +65,7 @@ export default function ProductForm(props) {
           <label className="p-form-label">Description</label>
           <input
             className="p-input-text"
-            name="p-description"
+            name="Description"
             type="text"
             placeholder="  Some initial details"
             onChange={handleProductFormdata}

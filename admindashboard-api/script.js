@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const jwt =require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 PORT = process.env.API_PORT;
@@ -9,8 +9,6 @@ app.use(express.json());
 
 const cors = require("cors");
 app.use(cors());
-
-
 
 app.listen(PORT, (err) => {
   if (err) {
@@ -233,20 +231,18 @@ app.get("/getproductlist", (req, res) => {
 
 const data = require("./database");
 
-
 app.post("/login", (req, res) => {
   console.log(req.body);
   const { userId, passwd } = req.body;
   console.log(passwd);
 
-const userData = data.userInfo
-console.log(userData)
+  const userData = data.userInfo;
+  console.log(userData);
 
   if (userId == data.user.username) {
     if (passwd == data.user.password) {
-
       const token = jwt.sign(userData, "secret");
-      console.log(token)
+      console.log(token);
       res.status(200).send({ token: token });
     } else {
       res.status(401).send({ msg: "password is incorrect" });
@@ -255,4 +251,20 @@ console.log(userData)
     res.status(403).send({ msg: "Please register user doesn't exist" });
   }
   res.end();
+});
+
+app.post("/addproduct", (req, res) => {
+  
+
+  try {
+    const isvalid = jwt.verify(req.body.token, "secret");
+
+    if (isvalid) {
+      console.log(req.body);
+      res.status(200).send({msg: "productadded"})
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(403).send({msg: "productadded not added"})
+  }
 });

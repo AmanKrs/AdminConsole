@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const RouteGuard = require("./Middleware/RouteGuard");
+const Validator = require("./Middleware/Validator")
 dotenv.config();
 PORT = process.env.API_PORT;
 
@@ -231,7 +233,7 @@ app.get("/getproductlist", (req, res) => {
 
 const data = require("./database");
 
-app.post("/login", (req, res) => {
+app.post("/login", Validator, (req, res) => {
   console.log(req.body);
   const { userId, passwd } = req.body;
   console.log(passwd);
@@ -253,18 +255,7 @@ app.post("/login", (req, res) => {
   res.end();
 });
 
-app.post("/addproduct", (req, res) => {
-  
-
-  try {
-    const isvalid = jwt.verify(req.headers.authorization, "secret");
-
-    if (isvalid) {
-      console.log(req.headers.authorization);
-      res.status(200).send({msg: "productadded"})
-    }
-  } catch (e) {
-    console.log(e);
-    res.status(403).send({msg: "productadded not added"})
-  }
+app.post("/addproduct", RouteGuard, (req, res) => {
+  console.log("route guard activated");
+  res.status(200).send({ msg: "productadded" });
 });

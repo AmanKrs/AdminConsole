@@ -12,7 +12,7 @@ import AddProductMedia from "./AddProductMedia";
 import axios from "axios";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import "../../../utils/interceptor"
+import "../../../utils/interceptor";
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -66,16 +66,18 @@ export default function NewProduct() {
           }, 1000);
         }
       } catch (e) {
-        if (e.response.status == 403) {
+        if (e) {
           console.log("error", e.response.status);
           setProductAdded(true);
-          setProductAddedMsg(e.response.data.msg);
-            setErrorMsg(true);
+          setProductAddedMsg(e.response.data);
+          setErrorMsg(true);
 
-            setTimeout(() => {
-              setActiveStep(0);
-            }, 1000);
+          setTimeout(() => {
+            setActiveStep(0);
+            setProductAdded(false);
+          }, 1000);
         }
+
         console.log(e);
       }
     } else {

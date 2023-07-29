@@ -40,7 +40,7 @@ export default function Login() {
       } else if (e.response.status == 403) {
         setErrorMsg("No user found");
       } else {
-        alert("Something went worng");
+        setErrorMsg(e.response.data.msg);
       }
     }
   };

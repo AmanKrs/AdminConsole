@@ -22,7 +22,9 @@ export default function ProductList() {
   const navigate = useNavigate();
 
   const getProducts = async () => {
-    const result = await axios.get("http://localhost:8082/getproductlist");
+    const result = await axios.get(
+      "http://localhost:8082/products/getproductlist"
+    );
     setProducts(result.data);
     setData(result.data);
     setLoading(false);
@@ -68,7 +70,7 @@ export default function ProductList() {
         displayProduct.filter((elem) => {
           for (let key in elem) {
             if (elem[key].toString().toLowerCase().includes(searchItem)) {
-              console.log("intial",elem)
+              console.log("intial", elem);
               return elem;
             }
           }

@@ -50,10 +50,13 @@ export default function NewProduct() {
     console.log("ifblock", activeStep, steps.length);
     if (activeStep === steps.length) {
       try {
-        const result = await axios.post("http://localhost:8082/addproduct", {
-          productData,
-          token: localStorage.getItem("token"),
-        });
+        const result = await axios.post(
+          "http://localhost:8082/products/addproduct",
+          {
+            productData,
+            token: localStorage.getItem("token"),
+          }
+        );
         console.log(result.data.msg);
         if (result.status == 200) {
           setProductAddedMsg(result.data.msg);

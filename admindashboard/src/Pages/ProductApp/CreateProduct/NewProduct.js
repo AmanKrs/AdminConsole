@@ -26,6 +26,7 @@ export default function NewProduct() {
   const [productAdded, setProductAdded] = useState(false);
   const [productAddedMsg, setProductAddedMsg] = useState();
   const [errorMsg, setErrorMsg] = useState(false);
+  const [mediaData, setMediaData] = useState();
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -51,28 +52,50 @@ export default function NewProduct() {
     if (activeStep === steps.length) {
       try {
         const result = await axios.post(
-          "http://localhost:8082/products/addproduct",
-          {
-            productData,
-            token: localStorage.getItem("token"),
-          }
+          "http://localhost:8082/products/addmedia",
+          mediaData
         );
         console.log(result.data.msg);
         if (result.status == 200) {
-          setProductAddedMsg(result.data.msg);
-          setProductAdded(true);
-          console.log("afterproductAdded", productAdded);
-          setTimeout(() => {
-            setActiveStep(0);
-            setProductAdded(false);
-            setErrorMsg(false);
-          }, 1000);
+          try {
+            const result = await axios.post(
+              "http://localhost:8082/products/addproduct",
+              {
+                productData,
+                token: localStorage.getItem("token"),
+              }
+            );
+            if (result.status == 200) {
+              setProductAddedMsg(result.data.msg);
+              setProductAdded(true);
+              console.log("afterproductAdded", productAdded);
+              setTimeout(() => {
+                setActiveStep(0);
+                setProductAdded(false);
+                setErrorMsg(false);
+              }, 1000);
+            }
+          } catch (e) {
+            if (e) {
+              console.log("error", e.response.status);
+              setProductAdded(true);
+              setProductAddedMsg(e.code);
+              setErrorMsg(true);
+
+              setTimeout(() => {
+                setActiveStep(0);
+                setProductAdded(false);
+              }, 1000);
+            }
+
+            console.log(e);
+          }
         }
       } catch (e) {
         if (e) {
           console.log("error", e.response.status);
           setProductAdded(true);
-          setProductAddedMsg(e.response.data);
+          setProductAddedMsg(e.response.statusText);
           setErrorMsg(true);
 
           setTimeout(() => {
@@ -84,7 +107,7 @@ export default function NewProduct() {
         console.log(e);
       }
     } else {
-      console.log(activeStep, steps.length);
+      console.log("esle finish", activeStep, steps.length);
     }
   };
 
@@ -147,6 +170,8 @@ export default function NewProduct() {
           <AddProductMedia
             productData={productData}
             setProductData={setProductData}
+            mediaData={mediaData}
+            setMediaData={setMediaData}
           />
         )}
         {activeStep === 2 && (

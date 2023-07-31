@@ -52,6 +52,12 @@ h3 {
   margin-top: -85px;
   text-align: center;
 }
+
+.p-media-box p {
+  margin-top: -85px;
+  text-align: center;
+  color: red;
+}
 .product-list-img {
   width: 30px;
   height: 30px;

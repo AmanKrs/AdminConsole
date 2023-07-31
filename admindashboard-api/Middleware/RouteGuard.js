@@ -8,13 +8,14 @@ const RouteGuard = (req,res,next)=>{
     const isvalid = jwt.verify(req.headers.authorization, "secret");
 
     if(isvalid){
+      console.log("router pass");
       next();
 
     }else{
       res.status(403).send("unauthorize")
     }
   }catch(e){
-    console.log(e);
+    console.log("router",e);
     res.status(500).send("something went wrong")
   }
 }

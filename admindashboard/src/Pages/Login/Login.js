@@ -97,7 +97,7 @@ export default function Login() {
                 <TextField
                   required
                   size="small"
-                  name="passwd"
+                  name="password"
                   label="Password"
                   type="password"
                   id="password"

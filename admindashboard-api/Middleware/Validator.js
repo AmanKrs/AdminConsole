@@ -1,16 +1,18 @@
 const Validator = (req, res, next) => {
-  const { userId, passwd } = req.body;
+  const {Email, userId, password } = req.body;
 
-  if (userId == null || passwd == null) {
+  if (userId == null || password == null) {
     res.status(402).send({ msg: "Username or password is can't empty" });
   } else {
-    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    next();
+   
+    // var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-    if (userId.match(mailformat)) {
-      next();
-    } else {
-      res.status(400).send({ msg: "username is invalid format" });
-    }
+    // if (Email.match(mailformat)) {
+    //   next();
+    // } else {
+    //   res.status(400).send({ msg: "username is invalid format" });
+    // }
   }
 };
 

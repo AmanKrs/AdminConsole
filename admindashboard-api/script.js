@@ -10,6 +10,10 @@ app.use(express.json());
 const cors = require("cors");
 app.use(cors());
 
+const connectDB = require("./dbconnect");
+
+connectDB();
+
 app.listen(PORT, (err) => {
   if (err) {
     console.log("Server can't start, Facing some Internal Issue");

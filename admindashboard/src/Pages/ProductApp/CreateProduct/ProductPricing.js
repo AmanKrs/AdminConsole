@@ -21,7 +21,7 @@ export default function ProductPricing(props) {
           <input
             className="p-input-text"
             name="price"
-            type="text"
+            type="number"
             onChange={handleProductFormdata}
           ></input>
         </div>
@@ -32,6 +32,7 @@ export default function ProductPricing(props) {
             onChange={handleProductFormdata}
             name="currency"
           >
+            <option></option>
             <option>Rupee</option>
             <option>USD</option>
             <option>Dinar</option>

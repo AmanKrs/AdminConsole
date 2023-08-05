@@ -5,6 +5,8 @@ const RouteGuard = require("../Middleware/RouteGuard");
 const multer = require("multer");
 const maxSize = 1048576;
 
+const ProductList = require("../Schema/ProductListSchema");
+
 //DiskStorage to store uploadedfile in the system
 
 const storage = multer.diskStorage({
@@ -37,7 +39,7 @@ const upload = multer({
   limits: { fileSize: maxSize },
 }).single("myFile");
 
-router.post("/addmedia",RouteGuard, (req, res) => {
+router.post("/addmedia", RouteGuard, (req, res) => {
   upload(req, res, (err) => {
     if (err) {
       if (err.errno) {
@@ -50,11 +52,10 @@ router.post("/addmedia",RouteGuard, (req, res) => {
         }
       }
     } else {
-     
       console.log(req.file);
       res
         .status(200)
-        .send({ msg: "upload successfull"});
+        .send({ msg: "upload successfull", path: req.file.path.substring(8) });
     }
   });
 });
@@ -270,9 +271,47 @@ router.get("/getproductlist", (req, res) => {
   ]);
 });
 
-router.post("/addproduct", RouteGuard, (req, res) => {
-  console.log("route guard activated");
-  res.status(200).send({ msg: "productadded" });
+router.post("/addproduct", RouteGuard, async (req, res) => {
+  console.log("route guard activated", req.body.productData);
+
+  const {
+    Name,
+    quantity,
+    Size,
+    Category,
+    Description,
+    price,
+    imageUrl,
+    sku,
+    tag,
+    currency,
+  } = req.body.productData;
+
+  const products = {
+    id: Math.ceil(Math.random() * 1000),
+    title: Name,
+    description: Description,
+    category: Category,
+    price: price,
+    image: imageUrl,
+    quantity: quantity,
+    properties: {
+      SKU: sku,
+      size: Size,
+      tag: tag,
+      currency: currency,
+    },
+  };
+
+  const addNewProduct = new ProductList(products);
+
+  const productAdded = await addNewProduct.save();
+
+  if (productAdded) {
+    res.status(200).send({ msg: "productadded" });
+  } else {
+    res.status(403).send({ msg: "Error product not added" });
+  }
 });
 
 module.exports = router;

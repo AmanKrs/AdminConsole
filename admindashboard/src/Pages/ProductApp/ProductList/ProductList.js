@@ -32,7 +32,7 @@ export default function ProductList() {
 
   useEffect(() => {
     getProducts();
-  });
+  },[]);
 
   console.log(product);
   console.log("productlist search", searchItem);
@@ -100,6 +100,7 @@ export default function ProductList() {
                   <TableCell align="center">Description</TableCell>
                   <TableCell align="center">Category</TableCell>
                   <TableCell align="center">Quantity</TableCell>
+                  <TableCell align="center">rate</TableCell>
                   <TableCell align="center">Price</TableCell>
                   <TableCell align="center">Edit</TableCell>
                 </TableRow>
@@ -122,6 +123,7 @@ export default function ProductList() {
                     <TableCell align="left">{row.description}</TableCell>
                     <TableCell align="left">{row.category}</TableCell>
                     <TableCell align="center">{row.rating.count}</TableCell>
+                    <TableCell align="center">{row.rating.rate}</TableCell>
                     <TableCell align="center">${row.price}</TableCell>
                     <TableCell align="center">
                       <BorderColorIcon

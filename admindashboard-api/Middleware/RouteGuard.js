@@ -9,6 +9,9 @@ const RouteGuard = (req,res,next)=>{
 
     if(isvalid){
       console.log("router pass");
+
+      
+      console.log("hello " + isvalid.uid);
       next();
 
     }else{

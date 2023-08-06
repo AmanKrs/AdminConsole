@@ -28,7 +28,7 @@ export default function Login() {
   const handleSubmit = async () => {
     try {
       const result = await axios.post(
-        "https://adminbackend-kcks.onrender.com/login/login-api",
+        "http://localhost:8082/login/login-api",
         formData
       );
       if (result.status == 200) {

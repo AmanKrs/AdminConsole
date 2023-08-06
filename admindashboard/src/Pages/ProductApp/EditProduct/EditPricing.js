@@ -4,6 +4,10 @@ import "../ProductAppStyle/productform.css";
 export default function EditPricing(props) {
   const { item, setEditFormData } = props;
 
+  console.log("item",item)
+  console.log("set",setEditFormData)
+  console.log("props",props)
+
   const handleEditPricedata = (e) => {
     setEditFormData((prev) => ({
       ...prev,
@@ -19,7 +23,7 @@ export default function EditPricing(props) {
           <label className="p-form-label">Price</label>
           <input
             className="p-input-text"
-            type="text"
+            type="number"
             name="price"
             defaultValue={item.price}
             onChange={handleEditPricedata}
@@ -31,7 +35,7 @@ export default function EditPricing(props) {
             className="p-input-text"
             name="sku"
             type="text"
-            defaultValue={item.rating.rate}
+            defaultValue={item.properties.SKU}
             onChange={handleEditPricedata}
           ></input>
         </div>
@@ -44,23 +48,22 @@ export default function EditPricing(props) {
             name="currency"
             onChange={handleEditPricedata}
           >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+            <option>{item.properties.currency}</option>
+            <option>Rupee</option>
+            <option>USD</option>
+            <option>Dinar</option>
           </select>
         </div>
         <div>
-          <label className="p-form-label">Tag</label>
-          <select
-            className="p-select-text"
-            name="tag"
-            onChange={handleEditPricedata}
-          >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-          </select>
-        </div>
+            <label className="p-form-label">Tag</label>
+            <input
+              className="p-input-text"
+              name="p-weight"
+              type="text"
+              defaultValue={item.properties.tag}
+              onChange={handleEditPricedata}
+            ></input>
+          </div>
       </div>
     </div>
   );

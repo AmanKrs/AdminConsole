@@ -23,19 +23,10 @@ export default function EditProduct() {
             margin: "0 auto",
             borderRadius: "20px",
           }}
-        ><br></br>
-          <EditProductInfo
-              item={product}
-            
-              setEditFormData={setEditFormData}
-             
-            />
-            <EditPricing
-              item={product}
-              
-              setEditFormData={setEditFormData}
-              
-            />
+        >
+          <br></br>
+          <EditProductInfo item={product} setEditFormData={setEditFormData} />
+          <EditPricing item={product} setEditFormData={setEditFormData} />
           <button
             onClick={() => {
               console.log(editFormData);

@@ -17,6 +17,7 @@ export default function Header(props) {
     const token = localStorage.getItem("token");
     const data = decodeToken(token);
     setUserInfo(data);
+    console.log("userinfo", data)
   }, []);
 
   return (

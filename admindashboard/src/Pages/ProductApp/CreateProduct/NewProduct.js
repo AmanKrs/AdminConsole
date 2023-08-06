@@ -51,6 +51,7 @@ export default function NewProduct() {
     console.log("ifblock", activeStep, steps.length);
     if (activeStep === steps.length) {
       try {
+        console.log("result.data.msg");
         const result = await axios.post(
           "http://localhost:8082/products/addmedia",
           mediaData
@@ -94,11 +95,12 @@ export default function NewProduct() {
             console.log(e);
           }
         }
+       
       } catch (e) {
         if (e) {
           console.log("error", e.response.status);
           setProductAdded(true);
-          setProductAddedMsg(e.response.statusText);
+          setProductAddedMsg(e.message);
           setErrorMsg(true);
 
           setTimeout(() => {

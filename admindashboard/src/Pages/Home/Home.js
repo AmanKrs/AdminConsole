@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import "./home.css";
 import AreaChartComp from "../../Component/Charts/AreaChartComp";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -23,6 +23,7 @@ export default function Home() {
     setAlignment(newAlignment);
   };
 
+  
   const data = [
     {
       name: "Page A",

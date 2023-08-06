@@ -26,12 +26,12 @@ export default function EditProductInfo(props) {
           ></input>
         </div>
         <div>
-          <label className="p-form-label">Weight</label>
+          <label className="p-form-label">Quantity</label>
           <input
             className="p-input-text"
             name="p-weight"
             type="text"
-            defaultValue={item.rating.count}
+            defaultValue={item.quantity}
             onChange={handleEditFormdata}
           ></input>
         </div>
@@ -44,21 +44,31 @@ export default function EditProductInfo(props) {
             name="p-size"
             onChange={handleEditFormdata}
           >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+            <option>{item.properties.size}</option>
+
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
           </select>
         </div>
         <div>
           <div>
-            <label className="p-form-label">Weight</label>
-            <input
-              className="p-input-text"
-              name="p-weight"
-              type="text"
-              defaultValue={item.category}
+            <label className="p-form-label">Category</label>
+            <select
+              className="p-select-text"
+              name="Category"
               onChange={handleEditFormdata}
-            ></input>
+            >
+              <option>{item.category}</option>
+              <option>Electronics</option>
+              <option>Home Appliances </option>
+              <option>Men's clothing</option>
+              <option>Women's clothing</option>
+              <option>Kids Wear</option>
+              <option>Jewelery</option>
+              <option>Mobiles</option>
+            </select>
           </div>
         </div>
       </div>

@@ -34,12 +34,15 @@ router.post("/login-api", Validator, async (req, res) => {
 
   if (userOne) {
     console.log("user match one", userOne);
-    userData = {
+    console.log("user one id", userOne._id.toString());
+    const uid = userOne._id.toString();
+    console.log("uid", uid);
+    const userData = {
+      uid: userOne._id,
       userId: userOne.userId,
       firstName: userOne.firstName,
       lastName: userOne.lastName,
       email: userOne.email,
-      city: userOne.city,
     };
 
     console.log("userData", userData);
@@ -49,6 +52,7 @@ router.post("/login-api", Validator, async (req, res) => {
 
     if (password == userOne.password) {
       const token = jwt.sign(userData, "secret");
+
       console.log(token);
       res.status(200).send({ token: token });
     } else {

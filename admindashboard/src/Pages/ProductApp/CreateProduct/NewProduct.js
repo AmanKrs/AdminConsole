@@ -57,16 +57,15 @@ export default function NewProduct() {
           mediaData
         );
         console.log(result.data.msg);
-        console.log("outpath",result);
+        console.log("outpath", result);
         if (result.status == 200) {
-          console.log("imagepath",result.data);
+          console.log("imagepath", result.data);
           productData.imageUrl = result.data.path;
           try {
             const result = await axios.post(
               "http://localhost:8082/products/addproduct",
               {
                 productData,
-                token: localStorage.getItem("token"),
               }
             );
             if (result.status == 200) {
@@ -95,7 +94,6 @@ export default function NewProduct() {
             console.log(e);
           }
         }
-       
       } catch (e) {
         if (e) {
           console.log("error", e.response.status);

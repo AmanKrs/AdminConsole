@@ -4,10 +4,6 @@ import "../ProductAppStyle/productform.css";
 export default function EditPricing(props) {
   const { item, setEditFormData } = props;
 
-  console.log("item",item)
-  console.log("set",setEditFormData)
-  console.log("props",props)
-
   const handleEditPricedata = (e) => {
     setEditFormData((prev) => ({
       ...prev,
@@ -55,15 +51,15 @@ export default function EditPricing(props) {
           </select>
         </div>
         <div>
-            <label className="p-form-label">Tag</label>
-            <input
-              className="p-input-text"
-              name="p-weight"
-              type="text"
-              defaultValue={item.properties.tag}
-              onChange={handleEditPricedata}
-            ></input>
-          </div>
+          <label className="p-form-label">Tag</label>
+          <input
+            className="p-input-text"
+            name="tag"
+            type="text"
+            defaultValue={item.properties.tag}
+            onChange={handleEditPricedata}
+          ></input>
+        </div>
       </div>
     </div>
   );

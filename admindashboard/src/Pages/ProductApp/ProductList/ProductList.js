@@ -11,6 +11,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import "../ProductAppStyle/productform.css";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import Loading from "../../../Component/Loading/Loading";
+import "../../../utils/interceptor";
 
 export default function ProductList() {
   const { searchItem } = useOutletContext();
@@ -22,7 +23,7 @@ export default function ProductList() {
   const navigate = useNavigate();
 
   const getProducts = async () => {
-    const result = await axios.get(
+    const result = await axios.post(
       "http://localhost:8082/products/getproductlist"
     );
     console.log("product", result.data);

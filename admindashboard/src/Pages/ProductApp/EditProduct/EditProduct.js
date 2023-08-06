@@ -4,12 +4,29 @@ import { useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import EditPricing from "./EditPricing";
 import EditProductInfo from "./EditProductInfo";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function EditProduct() {
   const data = useLocation();
-
+  const navigate = useNavigate();
   const product = data.state;
   const [editFormData, setEditFormData] = useState(product);
+
+  const handleEditProduct = async () => {
+    try {
+      const result = await axios.post(
+        "http://localhost:8082/products/editproduct",
+        {
+          editFormData,
+        }
+      );
+      if (result.status == 200) {
+        navigate("/productlist");
+      }
+    } catch (e) {
+      alert(e.response.msg);
+    }
+  };
 
   return (
     <div>
@@ -27,13 +44,7 @@ export default function EditProduct() {
           <br></br>
           <EditProductInfo item={product} setEditFormData={setEditFormData} />
           <EditPricing item={product} setEditFormData={setEditFormData} />
-          <button
-            onClick={() => {
-              console.log(editFormData);
-            }}
-          >
-            Save
-          </button>
+          <button onClick={handleEditProduct}>Save</button>
         </Box>
       </div>
     </div>

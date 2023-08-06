@@ -20,7 +20,7 @@ export default function EditProductInfo(props) {
           <input
             className="p-input-text"
             type="text"
-            name="p-name"
+            name="title"
             defaultValue={item.title}
             onChange={handleEditFormdata}
           ></input>
@@ -29,7 +29,7 @@ export default function EditProductInfo(props) {
           <label className="p-form-label">Quantity</label>
           <input
             className="p-input-text"
-            name="p-weight"
+            name="quantity"
             type="text"
             defaultValue={item.quantity}
             onChange={handleEditFormdata}
@@ -41,7 +41,7 @@ export default function EditProductInfo(props) {
           <label className="p-form-label">Sizes</label>
           <select
             className="p-select-text"
-            name="p-size"
+            name="size"
             onChange={handleEditFormdata}
           >
             <option>{item.properties.size}</option>
@@ -57,7 +57,7 @@ export default function EditProductInfo(props) {
             <label className="p-form-label">Category</label>
             <select
               className="p-select-text"
-              name="Category"
+              name="category"
               onChange={handleEditFormdata}
             >
               <option>{item.category}</option>
@@ -77,7 +77,7 @@ export default function EditProductInfo(props) {
           <label className="p-form-label">Description</label>
           <input
             className="p-input-text"
-            name="p-description"
+            name="description"
             type="text"
             defaultValue={item.description}
             onChange={handleEditFormdata}

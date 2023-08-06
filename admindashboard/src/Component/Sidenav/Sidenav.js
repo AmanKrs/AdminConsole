@@ -24,7 +24,13 @@ export default function Sidenav() {
           <span onClick={handleExpand}>
             <HomeIcon />
             <span style={{ font: "caption" }}>Home</span>
-            <div style={{transform:isExpanded ? "rotate(180deg)":"rotate(0deg)"}}><ExpandMoreIcon /></div>
+            <div
+              style={{
+                transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            >
+              <ExpandMoreIcon />
+            </div>
           </span>
           <ul
             className={isExpanded ? "nav-sub-items action" : "nav-sub-items "}
@@ -59,8 +65,14 @@ export default function Sidenav() {
         <li>
           <span onClick={handleExpand2}>
             <HomeIcon />
-            <span style={{ font: "caption" }}>Home</span>
-            <div style={{transform:isExpanded2 ? "rotate(180deg)":"rotate(0deg)"}}><ExpandMoreIcon /></div>
+            <span style={{ font: "caption" }}>E-Commerce</span>
+            <div
+              style={{
+                transform: isExpanded2 ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            >
+              <ExpandMoreIcon />
+            </div>
           </span>
           <ul
             className={isExpanded2 ? "nav-sub-items action" : "nav-sub-items "}
@@ -88,8 +100,6 @@ export default function Sidenav() {
             >
               <li>Product List</li>
             </NavLink>
-
-            
           </ul>
         </li>
       </ul>

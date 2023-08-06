@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const RouteGuard = require("../Middleware/RouteGuard");
 const multer = require("multer");
 const maxSize = 1048576;
+const mongoose = require("mongoose");
 
 const ProductList = require("../Schema/ProductListSchema");
 
@@ -64,29 +65,15 @@ router.post("/addmedia", RouteGuard, (req, res) => {
   });
 });
 
-router.get("/getproductlist", async (req, res) => {
+router.post("/getproductlist", async (req, res) => {
   const isvalid = jwt.verify(req.headers.authorization, "secret");
 
   const productOne = await ProductList.find({ uid: isvalid.uid });
   console.log("firstproduct", productOne);
   res.send(productOne);
-  // res.send([
-  //   {
-  //     id: 1,
-  //     title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-  //     price: 109.95,
-  //     description:
-  //       "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-  //     category: "men's clothing",
-  //     image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-  //     rating: { rate: 3.9, count: 120 },
-  //   }
-  // ]);
 });
 
-
-router.post("/addproduct",  async (req, res) => {
-
+router.post("/addproduct", async (req, res) => {
   const isvalid = jwt.verify(req.headers.authorization, "secret");
 
   console.log("route guard activated", req.body.productData);
@@ -132,6 +119,44 @@ router.post("/addproduct",  async (req, res) => {
   }
 });
 
+router.post("/editproduct", async (req, res) => {
+  const isvalid = jwt.verify(req.headers.authorization, "secret");
+
+  const {
+    id,
+    title,
+    quantity,
+    description,
+    category,
+    price,
+    sku,
+    size,
+    tag,
+    currency,
+  } = req.body.editFormData;
+
+  // console.log(req.body.editFormData)
+  const updatedProduct = await ProductList.findOneAndUpdate(
+    { id: id },
+    {
+      title: title,
+      quantity: quantity,
+      description: description,
+      category: category,
+      price: price,
+      "properties.SKU": sku,
+      "properties.size": size,
+      "properties.tag": tag,
+      "properties.currency": currency,
+    }
+  );
+  console.log("firstproduct", updatedProduct);
+
+  if (updatedProduct) {
+    res.status(200).send({ msg: "productedited" });
+  } else {
+    res.status(403).send({ msg: "Error editing product value" });
+  }
+});
+
 module.exports = router;
-
-

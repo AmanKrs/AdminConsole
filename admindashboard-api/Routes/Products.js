@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
 const RouteGuard = require("../Middleware/RouteGuard");
 const multer = require("multer");
 const maxSize = 1048576;
-const mongoose = require("mongoose");
 
 const ProductList = require("../Schema/ProductListSchema");
 
@@ -65,19 +63,17 @@ router.post("/addmedia", RouteGuard, (req, res) => {
   });
 });
 
-router.post("/getproductlist", async (req, res) => {
-  const isvalid = jwt.verify(req.headers.authorization, "secret");
+router.post("/getproductlist", RouteGuard, async (req, res) => {
+  const productOne = await ProductList.find({ uid: req.uid });
 
-  const productOne = await ProductList.find({ uid: isvalid.uid });
-  console.log("firstproduct", productOne);
   res.send(productOne);
 });
 
-router.post("/addproduct", async (req, res) => {
-  const isvalid = jwt.verify(req.headers.authorization, "secret");
+router.post("/addproduct", RouteGuard, async (req, res) => {
+  // const isvalid = jwt.verify(req.headers.authorization, "secret");
+  // console.log("hello " + isvalid.uid);
+  // commented beacuse middleware implemented
 
-  console.log("route guard activated", req.body.productData);
-  console.log("hello " + isvalid.uid);
   const {
     Name,
     quantity,
@@ -92,7 +88,7 @@ router.post("/addproduct", async (req, res) => {
   } = req.body.productData;
 
   const products = {
-    uid: isvalid.uid,
+    uid: req.uid,
     id: Math.ceil(Math.random() * 1000),
     title: Name,
     description: Description,
@@ -119,9 +115,7 @@ router.post("/addproduct", async (req, res) => {
   }
 });
 
-router.post("/editproduct", async (req, res) => {
-  const isvalid = jwt.verify(req.headers.authorization, "secret");
-
+router.post("/editproduct", RouteGuard, async (req, res) => {
   const {
     id,
     title,
@@ -135,7 +129,6 @@ router.post("/editproduct", async (req, res) => {
     currency,
   } = req.body.editFormData;
 
-  // console.log(req.body.editFormData)
   const updatedProduct = await ProductList.findOneAndUpdate(
     { id: id },
     {
@@ -150,12 +143,25 @@ router.post("/editproduct", async (req, res) => {
       "properties.currency": currency,
     }
   );
-  console.log("firstproduct", updatedProduct);
+  // console.log("firstproduct", updatedProduct)
 
   if (updatedProduct) {
     res.status(200).send({ msg: "productedited" });
   } else {
     res.status(403).send({ msg: "Error editing product value" });
+  }
+});
+
+router.post("/deleteproduct", RouteGuard, async (req, res) => {
+  const { id } = req.body.editFormData;
+  console.log("firstproduct", id, req.uid);
+
+  const delProduct = await ProductList.deleteOne({ uid: req.uid, id: id });
+
+  if (delProduct) {
+    res.status(200).send({ msg: "product Deleted" });
+  } else {
+    res.status(403).send({ msg: "Error deleting product value" });
   }
 });
 

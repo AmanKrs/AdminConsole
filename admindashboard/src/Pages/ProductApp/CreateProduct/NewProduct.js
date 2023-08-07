@@ -134,7 +134,9 @@ export default function NewProduct() {
   };
 
   const handleReset = () => {
+    setProductData({});
     setActiveStep(0);
+    
   };
 
   const handleClose = (event, reason) => {

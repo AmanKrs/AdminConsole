@@ -12,6 +12,9 @@ export default function EditProduct() {
   const product = data.state;
   const [editFormData, setEditFormData] = useState(product);
 
+  const undoEditProduct = () => {
+    navigate("/productlist");
+  };
   const handleEditProduct = async () => {
     try {
       const result = await axios.post(
@@ -27,6 +30,23 @@ export default function EditProduct() {
       alert(e.response.msg);
     }
   };
+
+  const deleteProduct = async()=>{
+    try {
+      const result = await axios.post(
+        "http://localhost:8082/products/deleteproduct",
+        {
+          editFormData,
+        }
+      );
+      if (result.status == 200) {
+        navigate("/productlist");
+      }
+    } catch (e) {
+      alert(e.response.msg);
+    }
+  };
+  
 
   return (
     <div>
@@ -45,6 +65,8 @@ export default function EditProduct() {
           <EditProductInfo item={product} setEditFormData={setEditFormData} />
           <EditPricing item={product} setEditFormData={setEditFormData} />
           <button onClick={handleEditProduct}>Save</button>
+          <button onClick={undoEditProduct}>Discard</button>
+          <button onClick={deleteProduct}>Delete</button>
         </Box>
       </div>
     </div>

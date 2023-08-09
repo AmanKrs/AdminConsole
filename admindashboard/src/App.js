@@ -9,6 +9,7 @@ import ProductList from "./Pages/ProductApp/ProductList/ProductList";
 import EditProduct from "./Pages/ProductApp/EditProduct/EditProduct";
 import OrderList from "./Pages/OrderList/OrderList";
 import OrderSummary from "./Pages/OrderSummary/OrderSummary";
+import Logout from "./Pages/Logout/Logout";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path="/order-summary" element={<OrderSummary />} />
             </Route>
           </Route>
+          <Route path="/register" element={<Logout />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>

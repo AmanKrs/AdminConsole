@@ -115,7 +115,7 @@ router.post("/addproduct", RouteGuard, async (req, res) => {
   }
 });
 
-router.post("/editproduct", RouteGuard, async (req, res) => {
+router.put("/editproduct", RouteGuard, async (req, res) => {
   const {
     id,
     title,
@@ -152,16 +152,21 @@ router.post("/editproduct", RouteGuard, async (req, res) => {
   }
 });
 
-router.post("/deleteproduct", RouteGuard, async (req, res) => {
-  const { id } = req.body.editFormData;
-  console.log("firstproduct", id, req.uid);
-
-  const delProduct = await ProductList.deleteOne({ uid: req.uid, id: id });
-
-  if (delProduct) {
-    res.status(200).send({ msg: "product Deleted" });
+router.delete("/deleteproduct", RouteGuard, async (req, res) => {
+  console.log(req.body.data);
+  const { id } = req.body;
+  
+  if (req.body.id) {
+    console.log(id);
+    const delProduct = await ProductList.deleteOne({ uid: req.uid, id: id });
+    console.log(delProduct);
+    if (delProduct.deletedCount) {
+      res.status(200).send({ msg: "product Deleted" });
+    } else {
+      res.status(403).send({ msg: "Error deleting product value" });
+    }
   } else {
-    res.status(403).send({ msg: "Error deleting product value" });
+    res.status(500).send({ msg: "Network ERROR" });
   }
 });
 

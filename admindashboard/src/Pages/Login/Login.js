@@ -15,15 +15,13 @@ import "./login.css";
 export default function Login() {
   const [formData, setFormData] = useState();
   const [errorMsg, setErrorMsg] = useState();
-
+  const navigate = useNavigate();
   const handleChange = (event) => {
     setFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -125,7 +123,7 @@ export default function Login() {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link href="/register" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>

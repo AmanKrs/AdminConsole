@@ -10,5 +10,5 @@ export default function ProtectedLayout() {
     }
   }, []);
 
-  return <div>{logged ? <Outlet /> : <Navigate to="/login" />}</div>;
+  return <div>{logged ? <Outlet /> : <Navigate to="/register" />}</div>;
 }

@@ -1,23 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const Validator = require("../Middleware/Validator");
+const ValidatorSignup = require("../Middleware/validateSignup");
 const jwt = require("jsonwebtoken");
 // const data = require("../database");
 const mongoose = require("mongoose");
 const Users = require("../Schema/UserSchema");
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", ValidatorSignup, async (req, res) => {
   // const { Email, userId, password } = req.body; key should matche the schema key
-
+  
   const user = new Users(req.body);
 
   const addUser = await user.save();
 
   if (addUser) {
-    console.log("useradded");
+    res.status(200).send({ msg: "User Register Successfully" });
   } else {
-    console.log("error adding user");
+    res.status(403).send({ msg: "Unable to Register User " });
   }
+
   res.end();
   // const finduser = await Users.find({})
 

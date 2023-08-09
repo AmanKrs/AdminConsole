@@ -42,3 +42,7 @@
 .usernav-details p {
   margin: 3px;
 }
+
+.moreOption{
+  cursor: pointer;
+}

@@ -6,6 +6,7 @@ import EditPricing from "./EditPricing";
 import EditProductInfo from "./EditProductInfo";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 export default function EditProduct() {
   const data = useLocation();
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function EditProduct() {
   };
   const handleEditProduct = async () => {
     try {
-      const result = await axios.post(
+      const result = await axios.put(
         "http://localhost:8082/products/editproduct",
         {
           editFormData,
@@ -31,22 +32,28 @@ export default function EditProduct() {
     }
   };
 
-  const deleteProduct = async()=>{
+  const deleteProduct = async () => {
     try {
-      const result = await axios.post(
+      const result = await axios.delete(
         "http://localhost:8082/products/deleteproduct",
-        {
-          editFormData,
-        }
+
+        { data: editFormData }
       );
       if (result.status == 200) {
         navigate("/productlist");
-      }
+      } 
     } catch (e) {
-      alert(e.response.msg);
+      console.log(e);
+      if (e.response.status == 403) {
+        alert("Error deleting product value");
+      }
+      else{
+        alert(e.response.statusText);
+      }
+     
+     
     }
   };
-  
 
   return (
     <div>

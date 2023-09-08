@@ -6,5 +6,68 @@ addproduct not chnages on reset or Finish
 
 app url=https://admin-dashboard-b2d9f.web.app
 
-
 how to add user id in routegaurad middleware and use in routes
+
+{
+"uid":"64eb9ad41470ce273b1ded9a",
+"name":"Kids",
+"profit":5,
+"SalesAmt":1200,
+"TotalRev":50000,
+"discountPercent": 12,
+"inStock": 4200
+},
+{
+"uid":"64eb9ad41470ce273b1ded9a",
+"name":"Mens",
+"profit":7,
+"SalesAmt":2400,
+"TotalRev":120000,
+"discountPercent": 10,
+"inStock": 6500
+},
+{
+"uid":"64eb9ad41470ce273b1ded9a",
+"name":"Womens",
+"profit":18,
+"SalesAmt":3000,
+"TotalRev":204000,
+"discountPercent": 21,
+"inStock": 7200
+},
+{
+"uid":"64eb9ad41470ce273b1ded9a",
+"name":"Footwear",
+"profit":16,
+"SalesAmt":900,
+"TotalRev":80000,
+"discountPercent": 18,
+"inStock": 2400
+},
+{
+"uid":"64eb9ad41470ce273b1ded9a",
+"name":"Jewellery",
+"profit":25,
+"SalesAmt":150,
+"TotalRev":127000,
+"discountPercent": 8,
+"inStock": 1308
+},
+{
+"uid":"64eb9ad41470ce273b1ded9a",
+"name":"Beauty",
+"profit":10,
+"SalesAmt":500,
+"TotalRev":52400,
+"discountPercent": 5,
+"inStock": 2700
+},
+{
+"uid":"64eb9ad41470ce273b1ded9a",
+"name":"Trek G",
+"profit":4,
+"SalesAmt":200,
+"TotalRev":12400,
+"discountPercent": 7,
+"inStock": 1900
+}

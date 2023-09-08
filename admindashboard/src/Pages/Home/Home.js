@@ -21,10 +21,40 @@ export default function Home() {
   const [revcount, setRevCount] = useState();
   const [alignment, setAlignment] = useState("");
   const [age, setAge] = useState("");
-  const [displaySales, setDisplaySales] = useState(0);
+  const [revFash, setRevFash] = useState(0);
+  const [revHome, setRevHome] = useState(0);
+  const [revElec, setRevElec] = useState(0);
   let TotalRevArr = [];
+  let revFashArr = [];
+  let revHomeArr = [];
+  let revElecArr = [];
 
   const totalRevValue = () => {
+    setRevFash(() => {
+      let sumFash = 0;
+      revFashArr.reduce((acc, curr) => {
+        sumFash = acc + curr;
+        return sumFash;
+      }, 0);
+      return setRevFash(sumFash);
+    });
+    setRevHome(() => {
+      let sumHome = 0;
+      revHomeArr.reduce((acc, curr) => {
+        sumHome = acc + curr;
+        return sumHome;
+      }, 0);
+      return setRevHome(sumHome);
+    });
+    setRevElec(() => {
+      let sumElec = 0;
+      revElecArr.reduce((acc, curr) => {
+        sumElec = acc + curr;
+        return sumElec;
+      }, 0);
+      return setRevElec(sumElec);
+    });
+
     let sum = 0;
     TotalRevArr.reduce((acc, curr) => {
       sum = acc + curr;
@@ -42,7 +72,7 @@ export default function Home() {
 
   const getcatSales = async () => {
     const result = await axios.get("http://localhost:8082/category/sales");
-    console.log("catsales", result);
+    // console.log("catsales", result);
     setData1(result.data.getFashion);
     setData2(result.data.getElectronics);
     setData3(result.data.getHome);
@@ -50,7 +80,7 @@ export default function Home() {
   };
 
   const getTotalRev = (revcountarr) => {
-    console.log(revcountarr);
+    console.log("heucdo", revcountarr);
     for (let key in revcountarr) {
       if (revcountarr.hasOwnProperty(key)) {
         // console.log("key", key);
@@ -60,17 +90,35 @@ export default function Home() {
           TotalRevArr.push(revcountarr[key][i].TotalRev);
         }
       }
+
+      if (key == "getFashion") {
+        for (let i = 0; i < revcountarr[key].length; i++) {
+          //console.log("Reveefeashin", revcountarr[key][i].TotalRev);
+          revFashArr.push(revcountarr[key][i].TotalRev);
+        }
+      }
+      if (key == "getElectronics") {
+        for (let i = 0; i < revcountarr[key].length; i++) {
+          //console.log("Reveefeashin", revcountarr[key][i].TotalRev);
+          revElecArr.push(revcountarr[key][i].TotalRev);
+        }
+      }
+      if (key == "getHome") {
+        for (let i = 0; i < revcountarr[key].length; i++) {
+          //console.log("Reveefeashin", revcountarr[key][i].TotalRev);
+          revHomeArr.push(revcountarr[key][i].TotalRev);
+        }
+      }
     }
     return totalRevValue();
   };
+
   const finalSale = useMemo(() => {
     return getTotalRev(revcount);
   }, [revcount]);
-  console.log("revcount", TotalRevArr);
-  console.log(finalSale);
-  // setTimeout(() => {
 
-  // }, 50);
+  // console.log("revcount", TotalRevArr);
+  // console.log(finalSale);
 
   useEffect(() => {
     getcatSales();
@@ -89,7 +137,9 @@ export default function Home() {
 
   useEffect(() => {
     setMyItems(data3);
+    setMyDiscount(data3);
   }, [data3]);
+
   useEffect(() => {
     if (alignment == 10) {
       setMyDiscount(data1);
@@ -105,22 +155,22 @@ export default function Home() {
       <Box className="dash-head">
         <div className="dash-head-item">
           Total Revenue
-          <p className="value">₹{finalSale}.00</p>
+          <p className="value">₹{finalSale}</p>
           <p className="date">{date}</p>
         </div>
         <div className="dash-head-item">
-          Total Revenue
-          <p className="value">₹1000.0</p>
+          Total Revenue Fashion
+          <p className="value">₹{revFash}</p>
           <p className="date">{date}</p>
         </div>
         <div className="dash-head-item">
-          Total Revenue
-          <p className="value">₹1000.00</p>
+          Total Revenue Home
+          <p className="value">₹{revHome}</p>
           <p className="date">{date}</p>
         </div>
         <div className="dash-head-item last-item">
-          Total Revenue
-          <p className="value">₹1000.00</p>
+          Total Revenue Electronics
+          <p className="value">₹{revElec}</p>
           <p className="date">{date}</p>
         </div>
       </Box>

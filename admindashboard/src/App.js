@@ -11,7 +11,6 @@ import OrderList from "./Pages/OrderList/OrderList";
 import OrderSummary from "./Pages/OrderSummary/OrderSummary";
 import Logout from "./Pages/Logout/Logout";
 
-
 function App() {
   return (
     <>
@@ -31,22 +30,6 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
-      {/* {logged && (
-        <>
-          <div>
-            <Header/>
-            <Sidenav />
-            <Content />
-          </div>
-        </>
-      )}
-      {!logged && (
-        <>
-          <div className="main">
-            <Login/>
-          </div>
-        </>
-      )} */}
     </>
   );
 }

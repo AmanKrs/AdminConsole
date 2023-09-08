@@ -31,8 +31,8 @@ export default function Header(props) {
   const handleLogout = () => {
     console.log("logout");
     localStorage.removeItem("token");
-    window.location.href = "http://localhost:3000/";
     navigate("/register");
+    window.location.reload(true)
   };
 
   const handleAccount = () => {

@@ -1,20 +1,37 @@
 import { Box } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./home.css";
 import AreaChartComp from "../../Component/Charts/AreaChartComp";
+import BarChartComp from "../../Component/Charts/BarChartComp";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import BoltIcon from "@mui/icons-material/Bolt";
+import axios from "axios";
 
 export default function Home() {
   var date = new Date();
   date = date.toString().substring(0, 15);
+  const [data1, setData1] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [data3, setData3] = useState([]);
+  const [myitems, setMyItems] = useState([]);
+  const [myDiscount, setMyDiscount] = useState([]);
+  const [revcount, setRevCount] = useState();
+  const [alignment, setAlignment] = useState("");
+  const [age, setAge] = useState("");
+  const [displaySales, setDisplaySales] = useState(0);
+  let TotalRevArr = [];
 
-  const [alignment, setAlignment] = React.useState("web");
-
-  const [age, setAge] = React.useState("");
+  const totalRevValue = () => {
+    let sum = 0;
+    TotalRevArr.reduce((acc, curr) => {
+      sum = acc + curr;
+      return sum;
+    }, 0);
+    return sum;
+  };
 
   const handleMonth = (event) => {
     setAge(event.target.value);
@@ -23,58 +40,72 @@ export default function Home() {
     setAlignment(newAlignment);
   };
 
-  
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+  const getcatSales = async () => {
+    const result = await axios.get("http://localhost:8082/category/sales");
+    console.log("catsales", result);
+    setData1(result.data.getFashion);
+    setData2(result.data.getElectronics);
+    setData3(result.data.getHome);
+    setRevCount(result.data);
+  };
+
+  const getTotalRev = (revcountarr) => {
+    console.log(revcountarr);
+    for (let key in revcountarr) {
+      if (revcountarr.hasOwnProperty(key)) {
+        // console.log("key", key);
+
+        for (let i = 0; i < revcountarr[key].length; i++) {
+          // console.log("TotalReveefe", revcount[key][i].TotalRev);
+          TotalRevArr.push(revcountarr[key][i].TotalRev);
+        }
+      }
+    }
+    return totalRevValue();
+  };
+  const finalSale = useMemo(() => {
+    return getTotalRev(revcount);
+  }, [revcount]);
+  console.log("revcount", TotalRevArr);
+  console.log(finalSale);
+  // setTimeout(() => {
+
+  // }, 50);
+
+  useEffect(() => {
+    getcatSales();
+  }, []);
+
+  useEffect(() => {
+    console.log("trstt");
+    if (age == 10) {
+      setMyItems(data1);
+    } else if (age == 20) {
+      setMyItems(data2);
+    } else {
+      setMyItems(data3);
+    }
+  }, [age]);
+
+  useEffect(() => {
+    setMyItems(data3);
+  }, [data3]);
+  useEffect(() => {
+    if (alignment == 10) {
+      setMyDiscount(data1);
+    } else if (alignment == 20) {
+      setMyDiscount(data2);
+    } else {
+      setMyDiscount(data3);
+    }
+  }, [alignment]);
 
   return (
     <div>
       <Box className="dash-head">
         <div className="dash-head-item">
           Total Revenue
-          <p className="value">₹157083.00</p>
+          <p className="value">₹{finalSale}.00</p>
           <p className="date">{date}</p>
         </div>
         <div className="dash-head-item">
@@ -105,13 +136,13 @@ export default function Home() {
                 size="small"
                 onChange={handleMonth}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={10}>Fashion</MenuItem>
+                <MenuItem value={20}>Electronics</MenuItem>
+                <MenuItem value={30}>Home Appliances</MenuItem>
               </Select>
             </p>
           </div>
-          <AreaChartComp data={data} />
+          <BarChartComp data={age == 10 ? data1 : age == 20 ? data2 : data3} />
         </Box>
         <Box className="dash-content-side">
           <h3 style={{ paddingLeft: "10px" }}>My items</h3>
@@ -121,60 +152,33 @@ export default function Home() {
                 display: "flex",
                 justifyContent: "space-between",
                 margin: "0 10px",
+                fontWeight: "500",
               }}
             >
-              <div style={{ display: "flex" }}>
-                <BoltIcon />
-                <span>Electronic</span>
-              </div>
-              <span>500</span>
+              <span>Name</span>
+              <span>Quantity</span>
             </div>
           </Box>
-          <Box sx={{ marginTop: "10px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                margin: "0 10px",
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                <BoltIcon />
-                <span>Electronic</span>
-              </div>
-              <span>500</span>
-            </div>
-          </Box>
-          <Box sx={{ marginTop: "10px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                margin: "0 10px",
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                <BoltIcon />
-                <span>Electronic</span>
-              </div>
-              <span>500</span>
-            </div>
-          </Box>
-          <Box sx={{ marginTop: "10px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                margin: "0 10px",
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                <BoltIcon />
-                <span>Electronic</span>
-              </div>
-              <span>500</span>
-            </div>
-          </Box>
+
+          {myitems?.map((elem) => {
+            return (
+              <Box sx={{ marginTop: "5px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    margin: "0 10px",
+                  }}
+                >
+                  <div style={{ display: "flex" }}>
+                    <BoltIcon />
+                    <span>{elem.name}</span>
+                  </div>
+                  <span>{elem.inStock}</span>
+                </div>
+              </Box>
+            );
+          })}
         </Box>
       </div>
       <div className="dash-content">
@@ -182,7 +186,6 @@ export default function Home() {
           <div className="chart-head">
             <p>Area chart</p>
             <p>
-              {" "}
               <ToggleButtonGroup
                 size="small"
                 color="primary"
@@ -191,13 +194,15 @@ export default function Home() {
                 onChange={handleChange}
                 aria-label="Platform"
               >
-                <ToggleButton value="web">Day</ToggleButton>
-                <ToggleButton value="android">Week</ToggleButton>
-                <ToggleButton value="ios">Month</ToggleButton>
+                <ToggleButton value={10}>Fashion</ToggleButton>
+                <ToggleButton value={20}>Electronic</ToggleButton>
+                <ToggleButton value={30}>Home Appliances</ToggleButton>
               </ToggleButtonGroup>
             </p>
           </div>
-          <AreaChartComp data={data} />
+          <AreaChartComp
+            data={alignment == 10 ? data1 : alignment == 20 ? data2 : data3}
+          />
         </Box>
         <Box className="dash-content-side">
           <h3 style={{ paddingLeft: "10px" }}>My Discount</h3>
@@ -207,60 +212,33 @@ export default function Home() {
                 display: "flex",
                 justifyContent: "space-between",
                 margin: "0 10px",
+                fontWeight: "500",
               }}
             >
-              <div style={{ display: "flex" }}>
-                <BoltIcon />
-                <span>Electronic</span>
-              </div>
-              <span>50%</span>
+              <span>Name</span>
+
+              <span>Discount %</span>
             </div>
           </Box>
-          <Box sx={{ marginTop: "10px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                margin: "0 10px",
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                <BoltIcon />
-                <span>Electronic</span>
-              </div>
-              <span>50%</span>
-            </div>
-          </Box>
-          <Box sx={{ marginTop: "10px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                margin: "0 10px",
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                <BoltIcon />
-                <span>Electronic</span>
-              </div>
-              <span>50%</span>
-            </div>
-          </Box>
-          <Box sx={{ marginTop: "10px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                margin: "0 10px",
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                <BoltIcon />
-                <span>Electronic</span>
-              </div>
-              <span>50%</span>
-            </div>
-          </Box>
+          {myDiscount.map((elem) => {
+            return (
+              <Box sx={{ marginTop: "5px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    margin: "0 10px",
+                  }}
+                >
+                  <div style={{ display: "flex" }}>
+                    <BoltIcon />
+                    <span>{elem.name}</span>
+                  </div>
+                  <span>{elem.discountPercent}</span>
+                </div>
+              </Box>
+            );
+          })}
         </Box>
       </div>
     </div>

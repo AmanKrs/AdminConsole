@@ -8,7 +8,7 @@ import { Outlet } from "react-router-dom";
 export default function Layout() {
   const [searchItem, setSearchItem] = useState(null);
   return (
-    <div>
+    <div className="content">
       <Header searchItem={searchItem} setSearchItem={setSearchItem} />
       <div className="main-layout">
         <Sidenav />

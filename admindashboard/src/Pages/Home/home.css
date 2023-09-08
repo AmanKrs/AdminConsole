@@ -88,3 +88,7 @@
   background-color: #fff;
   box-shadow: 0 0 5px grey;
 }
+.dash-content-side h3 {
+  text-align: center;
+  padding-top: 5px;
+}

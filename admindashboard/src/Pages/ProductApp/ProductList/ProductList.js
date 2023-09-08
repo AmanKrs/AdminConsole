@@ -163,7 +163,7 @@ export default function ProductList() {
           <em>Set No. Of Items Per Page</em>
         </div>
         <div>
-          <button onClick={handlePagePrev}>Prev</button>
+          <button onClick={handlePagePrev}>Prev </button>&nbsp;
           {arr.map((elem) => {
             return (
               <>

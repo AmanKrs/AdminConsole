@@ -189,7 +189,7 @@ export default function OrderSummary() {
                 <div className="rating">
                   <p>Did you like the product? Leave us a review here</p>
                   <p>⭐️⭐️⭐️⭐️⭐️</p>
-                  <p style={{ color: "#6E39CB" }}>Submit</p>
+                  <p style={{ color: "#6E39CB" }}>Submited</p>
                 </div>
               </Box>
             </Box>

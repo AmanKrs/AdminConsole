@@ -41,17 +41,14 @@ export default function EditProduct() {
       );
       if (result.status == 200) {
         navigate("/productlist");
-      } 
+      }
     } catch (e) {
       console.log(e);
       if (e.response.status == 403) {
         alert("Error deleting product value");
-      }
-      else{
+      } else {
         alert(e.response.statusText);
       }
-     
-     
     }
   };
 

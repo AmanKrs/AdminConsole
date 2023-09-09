@@ -24,7 +24,7 @@ export default function ProductList() {
 
   const getProducts = async () => {
     const result = await axios.post(
-      "http://localhost:8082/products/getproductlist"
+      "https://adminbackend-kcks.onrender.com/products/getproductlist"
     );
     console.log("product", result.data);
     setProducts(result.data);

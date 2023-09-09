@@ -71,7 +71,9 @@ export default function Home() {
   };
 
   const getcatSales = async () => {
-    const result = await axios.get("http://localhost:8082/category/sales");
+    const result = await axios.get(
+      "https://adminbackend-kcks.onrender.com/category/sales"
+    );
     // console.log("catsales", result);
     setData1(result.data.getFashion);
     setData2(result.data.getElectronics);

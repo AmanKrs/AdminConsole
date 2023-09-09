@@ -53,7 +53,7 @@ export default function NewProduct() {
       try {
         console.log("result.data.msg");
         const result = await axios.post(
-          "http://localhost:8082/products/addmedia",
+          "https://adminbackend-kcks.onrender.com/products/addmedia",
           mediaData
         );
         console.log(result.data.msg);
@@ -63,7 +63,7 @@ export default function NewProduct() {
           productData.imageUrl = result.data.path;
           try {
             const result = await axios.post(
-              "http://localhost:8082/products/addproduct",
+              "https://adminbackend-kcks.onrender.com/products/addproduct",
               {
                 productData,
               }

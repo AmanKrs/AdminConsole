@@ -26,7 +26,7 @@ export default function Logout() {
   const handleSubmit = async () => {
     try {
       const result = await axios.post(
-        "http://localhost:8082/login/signup",
+        "https://adminbackend-kcks.onrender.com/login/signup",
         formData
       );
       if (result.status == 200) {

@@ -19,7 +19,7 @@ export default function EditProduct() {
   const handleEditProduct = async () => {
     try {
       const result = await axios.put(
-        "http://localhost:8082/products/editproduct",
+        "https://adminbackend-kcks.onrender.com/products/editproduct",
         {
           editFormData,
         }
@@ -35,7 +35,7 @@ export default function EditProduct() {
   const deleteProduct = async () => {
     try {
       const result = await axios.delete(
-        "http://localhost:8082/products/deleteproduct",
+        "https://adminbackend-kcks.onrender.com/products/deleteproduct",
 
         { data: editFormData }
       );

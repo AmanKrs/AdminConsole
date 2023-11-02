@@ -51,7 +51,7 @@ export default function NewProduct() {
     if (activeStep === steps.length) {
       try {
         const result = await axios.post(
-          "http://localhost:8083/products/addmedia",
+          "https://adminbackend-kcks.onrender.com/products/addmedia",
           mediaData
         );
 
@@ -59,7 +59,7 @@ export default function NewProduct() {
           productData.imageUrl = result.data.path;
           try {
             const result = await axios.post(
-              "http://localhost:8083/products/addproduct",
+              "https://adminbackend-kcks.onrender.com/products/addproduct",
               {
                 productData,
               }

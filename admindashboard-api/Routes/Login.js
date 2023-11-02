@@ -29,7 +29,7 @@ router.post("/signup", ValidatorSignup, async (req, res) => {
 });
 
 router.post("/login-api", Validator, async (req, res) => {
-  req.body;
+
   const { userId, password } = req.body;
 
   const userOne = await Users.findOne({ userId: req.body.userId });
@@ -44,8 +44,6 @@ router.post("/login-api", Validator, async (req, res) => {
       email: userOne.email,
     };
 
-    console.log("userData", userData)
-  
 
     if (password == userOne.password) {
       const token = jwt.sign(userData, "secret");

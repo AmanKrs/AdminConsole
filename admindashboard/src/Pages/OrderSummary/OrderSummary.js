@@ -21,7 +21,7 @@ export default function OrderSummary() {
       doc.save("invoice.pdf");
      // document.getElementById("myinvoice").style.display = "none";
     }).catch((e) => {
-      console.error(e.message); // "oh, no!"
+      
     });
 
     // html2canvas(document.getElementById("summary"), {

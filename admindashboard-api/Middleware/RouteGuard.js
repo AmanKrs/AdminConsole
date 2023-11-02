@@ -12,7 +12,7 @@ const RouteGuard = (req, res, next) => {
       res.status(403).send("unauthorize");
     }
   } catch (e) {
-    console.log("router", e);
+    
     res.status(500).send("something went wrong");
   }
 };

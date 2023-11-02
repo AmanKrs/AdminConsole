@@ -4,7 +4,7 @@ import Sidenav from "../Sidenav/Sidenav";
 import Header from "../Header/Header";
 import "./layout.css";
 import { Outlet } from "react-router-dom";
-// 
+
 export default function Layout() {
   const [searchItem, setSearchItem] = useState(null);
   const [enableSidenav, setEnableSidenav] = useState(false);

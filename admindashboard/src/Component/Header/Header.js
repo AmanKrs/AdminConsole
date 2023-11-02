@@ -37,13 +37,13 @@ export default function Header(props) {
   };
 
   const handleAccount = () => {
-    console.log("userInfo", userInfo);
+    
     navigate("/orderlist");
     setAnchorEl(null);
   };
 
   const handleSidenav = () => {
-    console.log(enableSidenav);
+ 
     setEnableSidenav(!enableSidenav);
   };
   useEffect(() => {

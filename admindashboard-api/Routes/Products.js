@@ -70,8 +70,6 @@ router.post("/addproduct", RouteGuard, async (req, res) => {
   //  ("hello " + isvalid.uid);
   // commented beacuse middleware implemented
 
-  console.log("req.body.productData", req.body.productData);
-
 
   const {
     Name,
@@ -144,7 +142,7 @@ router.put("/editproduct", RouteGuard, async (req, res) => {
       "properties.currency": currency,
     }
   );
-  //  ("firstproduct", updatedProduct)
+  
 
   if (updatedProduct) {
     res.status(200).send({ msg: "productedited" });

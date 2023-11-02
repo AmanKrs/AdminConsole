@@ -19,7 +19,7 @@ export default function EditProduct() {
   const handleEditProduct = async () => {
     try {
       const result = await axios.put(
-        "http://localhost:8083/products/editproduct",
+        "https://adminbackend-kcks.onrender.com/products/editproduct",
         {
           editFormData,
         }
@@ -35,7 +35,7 @@ export default function EditProduct() {
   const deleteProduct = async () => {
     try {
       const result = await axios.delete(
-        "http://localhost:8083/products/deleteproduct",
+        "https://adminbackend-kcks.onrender.com/products/deleteproduct",
 
         { data: editFormData }
       );
@@ -43,7 +43,7 @@ export default function EditProduct() {
         navigate("/productlist");
       }
     } catch (e) {
-      e;
+
       if (e.response.status == 403) {
         alert("Error deleting product value");
       } else {

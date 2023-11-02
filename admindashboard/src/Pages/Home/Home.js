@@ -83,13 +83,13 @@ export default function Home() {
   const isLoading = useSelector((state) => state.salesData.loading);
 
   const getcatSales = () => {
-    console.log("dispatch");
+   
     dispatch(GetSalesDetails());
   };
 
   // below functions uses before redux
   // const getcatSales = async () => {
-  //   const result = await axios.get("http://localhost:8083/category/sales");
+  //   const result = await axios.get("https://adminbackend-kcks.onrender.com/category/sales");
   //   console.log(result.data);
   //   setData1(result.data.getFashion);
   //   setData2(result.data.getElectronics);
@@ -191,7 +191,6 @@ export default function Home() {
                 id="demo-simple-select"
                 value={age}
                 size="small"
-               
                 onChange={handleMonth}
               >
                 <MenuItem value={10}>Fashion</MenuItem>

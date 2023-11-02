@@ -1,11 +1,11 @@
 const fs = require("fs");
 const os = require("os");
 
-console.log(os.arch());
-console.log(os.platform());
-console.log(os.hostname());
-console.log(os.type());
-console.log(os.userInfo());
+os.arch();
+os.platform();
+os.hostname();
+os.type();
+os.userInfo();
 
 //to Write file that replace the data of file
 fs.writeFile(

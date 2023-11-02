@@ -9,16 +9,20 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import BoltIcon from "@mui/icons-material/Bolt";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import GetSalesDetails from "../../Redux/GetSalesCals/action";
+import Loading from "../../Component/Loading/Loading";
 
 export default function Home() {
   var date = new Date();
   date = date.toString().substring(0, 15);
-  const [data1, setData1] = useState([]);
-  const [data2, setData2] = useState([]);
-  const [data3, setData3] = useState([]);
+  // const [data1, setData1] = useState([]);
+  // const [data2, setData2] = useState([]);
+  // const [data3, setData3] = useState([]);
+  // const [revcount, setRevCount] = useState();
   const [myitems, setMyItems] = useState([]);
   const [myDiscount, setMyDiscount] = useState([]);
-  const [revcount, setRevCount] = useState();
+
   const [alignment, setAlignment] = useState("");
   const [age, setAge] = useState("");
   const [revFash, setRevFash] = useState(0);
@@ -28,6 +32,8 @@ export default function Home() {
   let revFashArr = [];
   let revHomeArr = [];
   let revElecArr = [];
+
+  const dispatch = useDispatch();
 
   const totalRevValue = () => {
     setRevFash(() => {
@@ -70,44 +76,47 @@ export default function Home() {
     setAlignment(newAlignment);
   };
 
-  const getcatSales = async () => {
-    const result = await axios.get(
-      "https://adminbackend-kcks.onrender.com/category/sales"
-    );
-    // console.log("catsales", result);
-    setData1(result.data.getFashion);
-    setData2(result.data.getElectronics);
-    setData3(result.data.getHome);
-    setRevCount(result.data);
+  const data1 = useSelector((state) => state.salesData.data1);
+  const data2 = useSelector((state) => state.salesData.data2);
+  const data3 = useSelector((state) => state.salesData.data3);
+  const revcount = useSelector((state) => state.salesData.revCount);
+  const isLoading = useSelector((state) => state.salesData.loading);
+
+  const getcatSales = () => {
+    console.log("dispatch");
+    dispatch(GetSalesDetails());
   };
 
+  // below functions uses before redux
+  // const getcatSales = async () => {
+  //   const result = await axios.get("http://localhost:8083/category/sales");
+  //   console.log(result.data);
+  //   setData1(result.data.getFashion);
+  //   setData2(result.data.getElectronics);
+  //   setData3(result.data.getHome);
+  //   setRevCount(result.data);
+  // };
+
   const getTotalRev = (revcountarr) => {
-    console.log("heucdo", revcountarr);
     for (let key in revcountarr) {
       if (revcountarr.hasOwnProperty(key)) {
-        // console.log("key", key);
-
         for (let i = 0; i < revcountarr[key].length; i++) {
-          // console.log("TotalReveefe", revcount[key][i].TotalRev);
           TotalRevArr.push(revcountarr[key][i].TotalRev);
         }
       }
 
       if (key == "getFashion") {
         for (let i = 0; i < revcountarr[key].length; i++) {
-          //console.log("Reveefeashin", revcountarr[key][i].TotalRev);
           revFashArr.push(revcountarr[key][i].TotalRev);
         }
       }
       if (key == "getElectronics") {
         for (let i = 0; i < revcountarr[key].length; i++) {
-          //console.log("Reveefeashin", revcountarr[key][i].TotalRev);
           revElecArr.push(revcountarr[key][i].TotalRev);
         }
       }
       if (key == "getHome") {
         for (let i = 0; i < revcountarr[key].length; i++) {
-          //console.log("Reveefeashin", revcountarr[key][i].TotalRev);
           revHomeArr.push(revcountarr[key][i].TotalRev);
         }
       }
@@ -119,15 +128,11 @@ export default function Home() {
     return getTotalRev(revcount);
   }, [revcount]);
 
-  // console.log("revcount", TotalRevArr);
-  // console.log(finalSale);
-
   useEffect(() => {
     getcatSales();
   }, []);
 
   useEffect(() => {
-    console.log("trstt");
     if (age == 10) {
       setMyItems(data1);
     } else if (age == 20) {
@@ -180,21 +185,28 @@ export default function Home() {
         <Box className="dash-content-main">
           <div className="chart-head">
             <p>Area chart</p>
-            <p>
+            <section>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={age}
                 size="small"
+               
                 onChange={handleMonth}
               >
                 <MenuItem value={10}>Fashion</MenuItem>
                 <MenuItem value={20}>Electronics</MenuItem>
                 <MenuItem value={30}>Home Appliances</MenuItem>
               </Select>
-            </p>
+            </section>
           </div>
-          <BarChartComp data={age == 10 ? data1 : age == 20 ? data2 : data3} />
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <BarChartComp
+              data={age == 10 ? data1 : age == 20 ? data2 : data3}
+            />
+          )}
         </Box>
         <Box className="dash-content-side">
           <h3 style={{ paddingLeft: "10px" }}>My items</h3>
@@ -212,9 +224,9 @@ export default function Home() {
             </div>
           </Box>
 
-          {myitems?.map((elem) => {
+          {myitems?.map((elem, idx) => {
             return (
-              <Box sx={{ marginTop: "5px" }}>
+              <Box sx={{ marginTop: "5px" }} key={idx}>
                 <div
                   style={{
                     display: "flex",
@@ -237,7 +249,7 @@ export default function Home() {
         <Box className="dash-content-main">
           <div className="chart-head">
             <p>Area chart</p>
-            <p>
+            <section>
               <ToggleButtonGroup
                 size="small"
                 color="primary"
@@ -250,8 +262,9 @@ export default function Home() {
                 <ToggleButton value={20}>Electronic</ToggleButton>
                 <ToggleButton value={30}>Home Appliances</ToggleButton>
               </ToggleButtonGroup>
-            </p>
+            </section>
           </div>
+
           <AreaChartComp
             data={alignment == 10 ? data1 : alignment == 20 ? data2 : data3}
           />
@@ -272,9 +285,9 @@ export default function Home() {
               <span>Discount %</span>
             </div>
           </Box>
-          {myDiscount.map((elem) => {
+          {myDiscount.map((elem, idx) => {
             return (
-              <Box sx={{ marginTop: "5px" }}>
+              <Box sx={{ marginTop: "5px" }} key={idx}>
                 <div
                   style={{
                     display: "flex",

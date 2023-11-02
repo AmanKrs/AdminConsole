@@ -41,21 +41,17 @@ const upload = multer({
 router.post("/addmedia", RouteGuard, (req, res) => {
   upload(req, res, (err) => {
     if (err) {
-      console.log("error1", err);
       if (err.errno) {
         res.status(404).send("invalid folder path");
         if (err.errno == -2) {
-          console.log("error1");
           res.status(404).send("invalid folder path");
         }
       } else {
-        console.log("error1");
         if (err.code == -1) {
           res.status(406).send("Invalid file type");
         }
       }
     } else {
-      console.log(req.file);
       res
         .status(200)
         .send({ msg: "upload successfull", path: req.file.path.substring(25) });
@@ -71,8 +67,11 @@ router.post("/getproductlist", RouteGuard, async (req, res) => {
 
 router.post("/addproduct", RouteGuard, async (req, res) => {
   // const isvalid = jwt.verify(req.headers.authorization, "secret");
-  // console.log("hello " + isvalid.uid);
+  //  ("hello " + isvalid.uid);
   // commented beacuse middleware implemented
+
+  console.log("req.body.productData", req.body.productData);
+
 
   const {
     Name,
@@ -113,6 +112,8 @@ router.post("/addproduct", RouteGuard, async (req, res) => {
   } else {
     res.status(403).send({ msg: "Error product not added" });
   }
+
+  
 });
 
 router.put("/editproduct", RouteGuard, async (req, res) => {
@@ -143,7 +144,7 @@ router.put("/editproduct", RouteGuard, async (req, res) => {
       "properties.currency": currency,
     }
   );
-  // console.log("firstproduct", updatedProduct)
+  //  ("firstproduct", updatedProduct)
 
   if (updatedProduct) {
     res.status(200).send({ msg: "productedited" });
@@ -153,13 +154,11 @@ router.put("/editproduct", RouteGuard, async (req, res) => {
 });
 
 router.delete("/deleteproduct", RouteGuard, async (req, res) => {
-  console.log(req.body.data);
   const { id } = req.body;
-  
+
   if (req.body.id) {
-    console.log(id);
     const delProduct = await ProductList.deleteOne({ uid: req.uid, id: id });
-    console.log(delProduct);
+
     if (delProduct.deletedCount) {
       res.status(200).send({ msg: "product Deleted" });
     } else {

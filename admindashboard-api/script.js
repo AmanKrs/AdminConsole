@@ -16,8 +16,8 @@ connectDB();
 
 app.listen(PORT, (err) => {
   if (err) {
-    console.log("Server can't start, Facing some Internal Issue");
-    clg(err);
+    console.log("Server can't start, Facing some Internal Issue ");
+    console.log(err);
   }
   console.log("server started @" + PORT);
 });

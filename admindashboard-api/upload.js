@@ -7,7 +7,7 @@ app.listen(8081, (err) => {
     console.log(err);
   }
 
-  console.log("uploadserver started at 8081");
+  ("uploadserver started at 8081");
 });
 
 //DiskStorage to store uploadedfile in the system
@@ -41,7 +41,6 @@ const upload = multer({
   fileFilter: fileFilter,
   limits: { fileSize: maxSize },
 }).single("myFile");
-
 
 app.post("/upload", (req, res) => {
   upload(req, res, (err) => {

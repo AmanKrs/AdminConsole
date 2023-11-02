@@ -1,15 +1,12 @@
-.side-content {
-  width: 20%;
-  height: auto;
-  background-color: #efefee;
-}
 .nav-item {
   list-style: none;
+  width: auto;
 }
-.nav-item li {
-  margin-top: 10px;
+.nav-item-li {
+  margin-top: 20px;
+  margin-left: -25px;
 }
-.nav-item li span {
+.nav-item-span {
   background-color: #9d71e7;
   padding: 10px;
   width: 80%;
@@ -18,22 +15,34 @@
   opacity: 0.5;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.navtitle{
+  font-size: 16px;
+}
 .nav-sub-items {
   display: none;
   list-style: none;
 }
-
+.item {
+  margin-top: 10px;
+}
 .action {
   display: block;
-  padding-left: 15px;
+  padding-left: 20px;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-.expandIcon{
+.expandIcon {
   transform: rotate(180deg);
 }
+

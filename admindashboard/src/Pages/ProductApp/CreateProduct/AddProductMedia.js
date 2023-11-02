@@ -9,7 +9,7 @@ export default function AddProductMedia(props) {
 
   const handleChange = (e) => {
     var fileData = new FormData();
-    console.log(e.target.files[0]);
+  
     fileData.append("myFile", e.target.files[0]);
     setMediaData(fileData);
     if (e.target.files[0].size > 10485760) {

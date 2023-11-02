@@ -10,7 +10,7 @@ export default function ProductForm(props) {
       [e.target.name]: e.target.value,
     }));
   };
-  console.log(productData);
+
   return (
     <div className="product-form">
       <h3>Product Information</h3>
@@ -36,19 +36,16 @@ export default function ProductForm(props) {
       </div>
       <div className="p-form-inputs">
         <div>
-          <label className="p-form-label">Sizes</label>
-          <select
-            className="p-select-text"
-            name="Size"
+          <label className="p-form-label">Description</label>
+          <input
+            className="p-input-text"
+            name="Description"
+            type="text"
+            placeholder="  Some initial details"
             onChange={handleProductFormdata}
-          >
-            <option></option>
-            <option>S</option>
-            <option>M</option>
-            <option>L</option>
-            <option>XL</option>
-          </select>
+          ></input>
         </div>
+
         <div>
           <label className="p-form-label">Category</label>
           <select
@@ -69,14 +66,18 @@ export default function ProductForm(props) {
       </div>
       <div className="p-form-inputs">
         <div>
-          <label className="p-form-label">Description</label>
-          <input
-            className="p-input-text"
-            name="Description"
-            type="text"
-            placeholder="  Some initial details"
+          <label className="p-form-label">Sizes</label>
+          <select
+            className="p-select-text"
+            name="Size"
             onChange={handleProductFormdata}
-          ></input>
+          >
+            <option></option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+          </select>
         </div>
       </div>
     </div>

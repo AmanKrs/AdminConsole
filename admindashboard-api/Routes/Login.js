@@ -9,7 +9,7 @@ const Users = require("../Schema/UserSchema");
 
 router.post("/signup", ValidatorSignup, async (req, res) => {
   // const { Email, userId, password } = req.body; key should matche the schema key
-  
+
   const user = new Users(req.body);
 
   const addUser = await user.save();
@@ -24,21 +24,18 @@ router.post("/signup", ValidatorSignup, async (req, res) => {
   // const finduser = await Users.find({})
 
   // if(finduser){
-  //   console.log("user match", finduser)
+  //    ("user match", finduser)
   // }
 });
 
 router.post("/login-api", Validator, async (req, res) => {
-  console.log(req.body);
+  req.body;
   const { userId, password } = req.body;
 
   const userOne = await Users.findOne({ userId: req.body.userId });
 
   if (userOne) {
-    console.log("user match one", userOne);
-    console.log("user one id", userOne._id.toString());
-    const uid = userOne._id.toString();
-    console.log("uid", uid);
+   
     const userData = {
       uid: userOne._id,
       userId: userOne.userId,
@@ -47,15 +44,11 @@ router.post("/login-api", Validator, async (req, res) => {
       email: userOne.email,
     };
 
-    console.log("userData", userData);
-    // const userInfrom = userOne
-
-    // const {password , ...userData} = userInfrom;
+    console.log("userData", userData)
+  
 
     if (password == userOne.password) {
       const token = jwt.sign(userData, "secret");
-
-      console.log(token);
       res.status(200).send({ token: token });
     } else {
       res.status(401).send({ msg: "password is incorrect" });
@@ -63,7 +56,6 @@ router.post("/login-api", Validator, async (req, res) => {
   } else {
     res.status(403).send({ msg: "Please register user doesn't exist" });
   }
-
   res.end();
 });
 

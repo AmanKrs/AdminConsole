@@ -13,24 +13,23 @@ http
     }
     //closing response
     res.end();
-    console.log(req.url);
+    req.url;
   })
   .listen(8085);
 
-  // url module use
-  http
+// url module use
+http
   .createServer((req, res) => {
-   const path= "http://localhost:8083";
-   res.write("hello url module")
-   let mylink = path + req.url
-   var qurl = url.parse(mylink, true);
-   console.log(qurl);
-   console.log(qurl.href); // output--- http://localhost:8083/xyz?id=01&name=aman
-   console.log(qurl.query) // output--- [Object: null prototype] { id: '01', name: 'aman' }
-   console.log(qurl.search) // output --- ?id=01&name=aman
-   console.log(qurl.query.id) // output --- 01(value of id pass in url) 
-   console.log(qurl.query.name) // output --- aman(value of name pass in url)
-    res.end()
-   
+    const path = "http://localhost:8083";
+    res.write("hello url module");
+    let mylink = path + req.url;
+    var qurl = url.parse(mylink, true);
+    qurl;
+    qurl.href; // output--- http://localhost:8083xyz?id=01&name=aman
+    qurl.query; // output--- [Object: null prototype] { id: '01', name: 'aman' }
+    qurl.search; // output --- ?id=01&name=aman
+    qurl.query.id; // output --- 01(value of id pass in url)
+    qurl.query.name; // output --- aman(value of name pass in url)
+    res.end();
   })
   .listen(8083);

@@ -1,52 +1,51 @@
 const express = require("express");
-var mongoose =require("mongoose")
+var mongoose = require("mongoose");
 
-const Users =require("../Schema/UserSchema")
-const orderList = require("../Schema/OrderListSchema")
+const Users = require("../Schema/UserSchema");
+const orderList = require("../Schema/OrderListSchema");
 const app = express();
 
-const url = "mongodb+srv://AmanKrs:mongoDB20@admindashboarddb.duuxaeb.mongodb.net/UserData"
+const url =
+  "mongodb+srv://AmanKrs:mongoDB20@admindashboarddb.duuxaeb.mongodb.net/UserData";
 
-app.use(express.json())
+app.use(express.json());
 
 app.listen(8081, (err) => {
-  if (err) console.log(err);
+  if (err) err;
 
-  console.log("Server started successfully at port 8081");
+  ("Server started successfully at port 8081");
 });
 
-mongoose.connect(url).then(()=>{
-  console.log("dbconnected")
-}).catch((e=>{
-  {
-    console.log(e)
-  }
-}))
+mongoose
+  .connect(url)
+  .then(() => {
+    ("dbconnected");
+  })
+  .catch((e) => {
+    {
+      e;
+    }
+  });
 
-app.post("/signup", async(req,res)=>{
-
-  console.log(req.body)
+app.post("/signup", async (req, res) => {
+  req.body;
 
   const newUser = {
     Username: req.body.username,
-    Password: req.body.password
-  }
+    Password: req.body.password,
+  }(newUser);
 
-  console.log(newUser)
-
-  const user = new Users(newUser)
+  const user = new Users(newUser);
 
   const addUser = await user.save();
 
-  if(addUser){
-    console.log("user added")
+  if (addUser) {
+    ("user added");
   }
-  
 });
 
-app.post("/orderlist", async(req,res)=>{
-
-  console.log(req.body)
+app.post("/orderlist", async (req, res) => {
+  req.body;
 
   const newOrder = {
     Customer: req.body.Customer,
@@ -55,16 +54,13 @@ app.post("/orderlist", async(req,res)=>{
     Status: req.body.Status,
     Revenue: req.body.Revenue,
     Date: req.body.Date,
-  }
+  }(newOrder);
 
-  console.log(newOrder)
-
-  const Order = new orderList(newOrder)
+  const Order = new orderList(newOrder);
 
   const AddOrder = await Order.save();
 
-  if(AddOrder){
-    console.log("OrderList added")
+  if (AddOrder) {
+    ("OrderList added");
   }
-  
 });

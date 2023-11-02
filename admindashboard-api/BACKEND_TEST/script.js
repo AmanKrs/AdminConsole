@@ -10,11 +10,11 @@ app.use(cors());
 
 var API_PORT = process.env.PORT;
 app.listen(API_PORT, () => {
-  console.log("server started" + API_PORT);
+  "server started" + API_PORT;
 });
 
 app.get("/getdata", (req, res) => {
-  console.log(req.body);
+  req.body;
 
   res.send([
     {
@@ -226,23 +226,20 @@ app.get("/getdata", (req, res) => {
   ]);
 });
 
-//create an api that checks if a user is logged in or not 
- // your req will contain some token 
- //match that token with some token in your backend 
+//create an api that checks if a user is logged in or not
+// your req will contain some token
+//match that token with some token in your backend
 //if matched then send response 200 as logged in
- //else send response 403 unauthorised
+//else send response 403 unauthorised
 
- app.post("/logged", (req,res)=>{
+app.post("/logged", (req, res) => {
+  req.body;
 
-     console.log(req.body)
+  let token = req.body.token;
 
-     let token = req.body.token
-
-     if(token=="dologin"){
-      res.status(200).send({msg:"Login done"})
-     }
-     else{
-      res.status(403).send({msg:"token not match"})
-     }
-     
- });
+  if (token == "dologin") {
+    res.status(200).send({ msg: "Login done" });
+  } else {
+    res.status(403).send({ msg: "token not match" });
+  }
+});

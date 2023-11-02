@@ -1,17 +1,53 @@
+.content {
+  background-color: #363434;
+}
 .main-layout {
   display: flex;
   position: relative;
   margin-top: 60px;
-  height: 100%;
 }
-
+.side-content {
+  width: 20%;
+  height: 100vh;
+  background-color: #363434;
+}
+.side-enable {
+  width: 60%;
+  height: 100%;
+  position: absolute;
+  z-index: 12;
+  background-color: #363434;
+}
 .outlet-layout {
   width: 80%;
   padding: 20px;
-  background-color: #e8e8e8;
+  background-color: #272625;
 }
 
-.content {
-  height: 100%;
-  background-color: #e8e8e8;
+@media only screen and (max-width: 680px)  {
+
+  .side-content {
+    display: none;
+  }
+  .outlet-layout {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 680px)  {
+
+  .side-enable {
+    display: none;
+  }
+  .outlet-layout {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 680px) and (max-width: 860px) {
+  .side-content {
+    width: 23%;
+  }
+  .outlet-layout {
+    width: 77%;
+  }
 }

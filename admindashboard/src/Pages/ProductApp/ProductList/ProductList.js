@@ -24,9 +24,9 @@ export default function ProductList() {
 
   const getProducts = async () => {
     const result = await axios.post(
-      "https://adminbackend-kcks.onrender.com/products/getproductlist"
+      "http://localhost:8083/products/getproductlist"
     );
-    console.log("product", result.data);
+    "product", result.data;
     setProducts(result.data);
     setData(result.data);
     setLoading(false);
@@ -36,8 +36,8 @@ export default function ProductList() {
     getProducts();
   }, []);
 
-  console.log(product);
-  console.log("productlist search", searchItem);
+  product;
+  "productlist search", searchItem;
   let pageNo = Math.ceil(product.length / itemsPerPage);
   let endIndex = currentIndex * itemsPerPage;
   const displayProduct = product.slice(
@@ -51,7 +51,7 @@ export default function ProductList() {
   };
 
   const handlePageNxt = () => {
-    console.log(pageNo);
+    pageNo;
     if (currentIndex < pageNo) {
       setCurrentIndex(currentIndex + 1);
     }
@@ -72,7 +72,7 @@ export default function ProductList() {
         displayProduct.filter((elem) => {
           for (let key in elem) {
             if (elem[key].toString().toLowerCase().includes(searchItem)) {
-              console.log("intial", elem);
+              "intial", elem;
               return elem;
             }
           }

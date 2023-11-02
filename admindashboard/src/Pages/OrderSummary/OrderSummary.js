@@ -40,7 +40,7 @@ export default function OrderSummary() {
 
 
 
-  console.log(state);
+
   return (
     <div>
       <h2 style={{ color: "#6e39cb" }}>Order Summary </h2>

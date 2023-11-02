@@ -18,20 +18,23 @@ export default function Sidenav() {
     setExpanded(false);
   };
   return (
-    <div className="side-content">
+    <div>
       <ul className="nav-item">
-        <li>
-          <span onClick={handleExpand}>
-            <HomeIcon />
-            <span style={{ font: "caption" }}>Home</span>
-            <div
+        <li className="nav-item-li">
+          <div className="nav-item-span" onClick={handleExpand}>
+            <div className="navIcon">
+              <HomeIcon style={{ width: "30px", height: "20px" }} />
+              <span className="navtitle">Home</span>
+            </div>
+
+            <ExpandMoreIcon
               style={{
                 transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                width: "20px",
+                height: "20px",
               }}
-            >
-              <ExpandMoreIcon />
-            </div>
-          </span>
+            />
+          </div>
           <ul
             className={isExpanded ? "nav-sub-items action" : "nav-sub-items "}
           >
@@ -44,7 +47,7 @@ export default function Sidenav() {
                 };
               }}
             >
-              <li>Dashboard</li>
+              <li className="item">Dashboard</li>
             </NavLink>
 
             <NavLink
@@ -56,24 +59,26 @@ export default function Sidenav() {
                 };
               }}
             >
-              <li>Order List</li>
+              <li className="item">Order List</li>
             </NavLink>
           </ul>
         </li>
       </ul>
       <ul className="nav-item">
-        <li>
-          <span onClick={handleExpand2}>
-            <HomeIcon />
-            <span style={{ font: "caption" }}>E-Commerce</span>
-            <div
+        <li className="nav-item-li">
+          <div className="nav-item-span" onClick={handleExpand2}>
+          <div className="navIcon">
+              <HomeIcon style={{ width: "30px", height: "20px" }} />
+              <span className="navtitle">Product</span>
+            </div>
+            <ExpandMoreIcon
               style={{
                 transform: isExpanded2 ? "rotate(180deg)" : "rotate(0deg)",
+                width: "20px",
+                height: "20px",
               }}
-            >
-              <ExpandMoreIcon />
-            </div>
-          </span>
+            />
+          </div>
           <ul
             className={isExpanded2 ? "nav-sub-items action" : "nav-sub-items "}
           >
@@ -86,7 +91,7 @@ export default function Sidenav() {
                 };
               }}
             >
-              <li>Add Product</li>
+              <li className="item">Add Product</li>
             </NavLink>
 
             <NavLink
@@ -98,7 +103,7 @@ export default function Sidenav() {
                 };
               }}
             >
-              <li>Product List</li>
+              <li className="item">Product List</li>
             </NavLink>
           </ul>
         </li>

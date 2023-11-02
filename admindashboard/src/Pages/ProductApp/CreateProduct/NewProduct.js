@@ -48,22 +48,18 @@ export default function NewProduct() {
   };
 
   const handleFinish = async () => {
-    console.log("ifblock", activeStep, steps.length);
     if (activeStep === steps.length) {
       try {
-        console.log("result.data.msg");
         const result = await axios.post(
-          "https://adminbackend-kcks.onrender.com/products/addmedia",
+          "http://localhost:8083/products/addmedia",
           mediaData
         );
-        console.log(result.data.msg);
-        console.log("outpath", result);
+
         if (result.status == 200) {
-          console.log("imagepath", result.data);
           productData.imageUrl = result.data.path;
           try {
             const result = await axios.post(
-              "https://adminbackend-kcks.onrender.com/products/addproduct",
+              "http://localhost:8083/products/addproduct",
               {
                 productData,
               }
@@ -71,7 +67,7 @@ export default function NewProduct() {
             if (result.status == 200) {
               setProductAddedMsg(result.data.msg);
               setProductAdded(true);
-              console.log("afterproductAdded", productAdded);
+
               setTimeout(() => {
                 setActiveStep(0);
                 setProductAdded(false);
@@ -80,7 +76,6 @@ export default function NewProduct() {
             }
           } catch (e) {
             if (e) {
-              console.log("error", e.response.status);
               setProductAdded(true);
               setProductAddedMsg(e.code);
               setErrorMsg(true);
@@ -90,13 +85,10 @@ export default function NewProduct() {
                 setProductAdded(false);
               }, 1000);
             }
-
-            console.log(e);
           }
         }
       } catch (e) {
         if (e) {
-          console.log("error", e.response.status);
           setProductAdded(true);
           setProductAddedMsg(e.message);
           setErrorMsg(true);
@@ -106,11 +98,7 @@ export default function NewProduct() {
             setProductAdded(false);
           }, 1000);
         }
-
-        console.log(e);
       }
-    } else {
-      console.log("esle finish", activeStep, steps.length);
     }
   };
 
@@ -150,7 +138,7 @@ export default function NewProduct() {
       <h1 style={{ color: "#6e39cb" }}>New Product</h1>
 
       <Box sx={{ width: "80%", margin: "auto" }}>
-        <Stepper activeStep={activeStep}>
+        <Stepper activeStep={activeStep} className="Stepperlabelcolor">
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};

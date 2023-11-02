@@ -25,12 +25,20 @@ export default function BarChartComp(props) {
             bottom: 20,
           }}
         >
-          <defs>
-            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="blue" stopOpacity={0.7} />
-              <stop offset="95%" stopColor="blue" stopOpacity={0.1} />
-            </linearGradient>
-          </defs>
+           <defs>
+          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="blue" stopOpacity={0.7} />
+            <stop offset="95%" stopColor="blue" stopOpacity={0.1} />
+          </linearGradient>
+          <linearGradient id="colordr" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="red" stopOpacity={0.7} />
+            <stop offset="95%" stopColor="red" stopOpacity={0.1} />
+          </linearGradient>
+          <linearGradient id="colorun" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="green" stopOpacity={0.7} />
+            <stop offset="95%" stopColor="green" stopOpacity={0.1} />
+          </linearGradient>
+        </defs>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
@@ -39,14 +47,14 @@ export default function BarChartComp(props) {
             type="monotone"
             dataKey="profit"
             stroke="red"
-            fill="none"
+            fill="url(#colordr)"
             fillOpacity={1}
           />
           <Bar
             type="monotone"
             dataKey="SalesAmt"
             stroke="green"
-            fill="none"
+            fill="url(#colorun)"
             fillOpacity={1}
           />
           <Bar

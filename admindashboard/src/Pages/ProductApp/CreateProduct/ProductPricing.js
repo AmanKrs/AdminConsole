@@ -10,7 +10,7 @@ export default function ProductPricing(props) {
       [e.target.name]: e.target.value,
     }));
   };
-  console.log(productData);
+
 
   return (
     <div className="product-form">

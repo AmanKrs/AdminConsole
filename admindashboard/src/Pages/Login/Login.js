@@ -4,7 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -26,16 +25,14 @@ export default function Login() {
   const handleSubmit = async () => {
     try {
       const result = await axios.post(
-        "https://adminbackend-kcks.onrender.com/login/login-api",
+        "http://localhost:8083/login/login-api",
         formData
       );
       if (result.status == 200) {
-        console.log(result.data);
         localStorage.setItem("token", result.data.token);
         navigate("/");
       }
     } catch (e) {
-      console.log("catch", e);
       if (e.response.status == 401) {
         setErrorMsg("username or password is incorrect");
       } else if (e.response.status == 403) {
@@ -48,90 +45,65 @@ export default function Login() {
 
   return (
     <>
-      <div className="login-container">
-        <Box>
-          <Grid
-            container
-            item
-            sm={4}
-            md={5}
-            component={Paper}
-            elevation={8}
-            square
-            sx={{
-              ml: 20,
-              backgroundImage:
-                "url(https://www.freevector.com/uploads/vector/preview/30349/Abstract_background_vector_1.jpg)",
-
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <Box
-              sx={{
-                mt: 2,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h6" variant="h6">
-                Sign in
+      <div className="logout-box">
+        <div className="logout-container">
+          <div className="input-container">
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h6" variant="h6">
+              Sign in
+            </Typography>
+            <Box component="form" sx={{ mt: 2, width: "70%" }}>
+              <TextField
+                required
+                size="small"
+                label="User Name"
+                name="userId"
+                onChange={handleChange}
+                autoFocus
+              />
+              <br></br>
+              <br></br>
+              <TextField
+                required
+                size="small"
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                onChange={handleChange}
+              />
+              <Typography
+                variant="caption"
+                display="block"
+                sx={{ mt: 1, ml: 2, color: "red" }}
+              >
+                {errorMsg}
               </Typography>
-              <Box component="form" sx={{ mt: 2, width: "80%" }}>
-                <TextField
-                  required
-                  size="small"
-                  label="User Name"
-                  name="userId"
-                  onChange={handleChange}
-                  autoFocus
-                />
-                <br></br>
-                <br></br>
-                <TextField
-                  required
-                  size="small"
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  onChange={handleChange}
-                />
-                <Typography
-                  variant="caption"
-                  display="block"
-                  sx={{ mt: 1, ml: 2, color: "red" }}
-                >
-                  {errorMsg}
-                </Typography>
-                <Button
-                  variant="contained"
-                  sx={{ mt: 2, mb: 2, ml: 8 }}
-                  onClick={handleSubmit}
-                >
-                  Sign In
-                </Button>
+              <Button
+                variant="contained"
+                sx={{ mt: 2, mb: 2, ml: 8 }}
+                onClick={handleSubmit}
+              >
+                Sign In
+              </Button>
 
-                <Grid container sx={{ mt: 2, mb: 2 }}>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="/register" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
+              <Grid container sx={{ mt: 1, mb: 3 }}>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
                 </Grid>
-              </Box>
+                <Grid item>
+                  <Link href="/register" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
             </Box>
-          </Grid>
-        </Box>
+          </div>
+        </div>
       </div>
     </>
   );

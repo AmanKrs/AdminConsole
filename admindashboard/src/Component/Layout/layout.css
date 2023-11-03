@@ -13,9 +13,9 @@
 }
 .side-enable {
   width: 60%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
-  z-index: 12;
+  
   background-color: #363434;
 }
 .outlet-layout {
@@ -24,16 +24,21 @@
   background-color: #272625;
 }
 
-@media only screen and (max-width: 680px)  {
+@media only screen and (max-width: 840px)  {
 
   .side-content {
     display: none;
+   
+  }
+  .side-enable {
+    height: 100vh;
+    z-index: 2;
   }
   .outlet-layout {
     width: 100%;
   }
 }
-@media only screen and (min-width: 680px)  {
+@media only screen and (min-width: 840px)  {
 
   .side-enable {
     display: none;
@@ -47,7 +52,5 @@
   .side-content {
     width: 23%;
   }
-  .outlet-layout {
-    width: 77%;
-  }
+ 
 }

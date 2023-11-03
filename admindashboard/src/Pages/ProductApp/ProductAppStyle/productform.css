@@ -3,7 +3,7 @@
   height: auto;
   margin: 0 auto;
   margin-top: 50px;
-  background-color: #fff;
+ 
   box-sizing: border-box;
   padding-bottom: 20px;
   border-radius: 10px;
@@ -127,6 +127,9 @@ h3 {
   .p-form-inputs {
     display: flex;
     flex-direction: column;
+  }
+  .MuiPaper-root {
+    width: 90vw !important;
   }
 }
 

@@ -83,7 +83,6 @@ export default function Home() {
   const isLoading = useSelector((state) => state.salesData.loading);
 
   const getcatSales = () => {
-   
     dispatch(GetSalesDetails());
   };
 
@@ -161,28 +160,28 @@ export default function Home() {
     <div>
       <Box className="dash-head">
         <div className="dash-head-item">
-          Total Revenue
+          <p className="revtitle">Total Revenue</p>
           <p className="value">₹{finalSale}</p>
           <p className="date">{date}</p>
         </div>
         <div className="dash-head-item">
-          Total Revenue Fashion
+          <p className="revtitle">Fashion</p>
           <p className="value">₹{revFash}</p>
           <p className="date">{date}</p>
         </div>
         <div className="dash-head-item">
-          Total Revenue Home
+          <p className="revtitle">Home</p>
           <p className="value">₹{revHome}</p>
           <p className="date">{date}</p>
         </div>
         <div className="dash-head-item last-item">
-          Total Revenue Electronics
+          <p className="revtitle">Electronics</p>
           <p className="value">₹{revElec}</p>
           <p className="date">{date}</p>
         </div>
       </Box>
       <div className="dash-content">
-        <Box className="dash-content-main">
+        <div className="dash-content-main">
           <div className="chart-head">
             <p>Area chart</p>
             <section>
@@ -206,10 +205,10 @@ export default function Home() {
               data={age == 10 ? data1 : age == 20 ? data2 : data3}
             />
           )}
-        </Box>
-        <Box className="dash-content-side">
+        </div>
+        <div className="dash-content-side">
           <h3 style={{ paddingLeft: "10px" }}>My items</h3>
-          <Box sx={{ marginTop: "10px" }}>
+          <div sx={{ marginTop: "10px" }}>
             <div
               style={{
                 display: "flex",
@@ -221,11 +220,11 @@ export default function Home() {
               <span>Name</span>
               <span>Quantity</span>
             </div>
-          </Box>
+          </div>
 
           {myitems?.map((elem, idx) => {
             return (
-              <Box sx={{ marginTop: "5px" }} key={idx}>
+              <div sx={{ marginTop: "5px" }} key={idx}>
                 <div
                   style={{
                     display: "flex",
@@ -239,13 +238,13 @@ export default function Home() {
                   </div>
                   <span>{elem.inStock}</span>
                 </div>
-              </Box>
+              </div>
             );
           })}
-        </Box>
+        </div>
       </div>
       <div className="dash-content">
-        <Box className="dash-content-main">
+        <div className="dash-content-main">
           <div className="chart-head">
             <p>Area chart</p>
             <section>
@@ -267,10 +266,10 @@ export default function Home() {
           <AreaChartComp
             data={alignment == 10 ? data1 : alignment == 20 ? data2 : data3}
           />
-        </Box>
-        <Box className="dash-content-side">
+        </div>
+        <div className="dash-content-side">
           <h3 style={{ paddingLeft: "10px" }}>My Discount</h3>
-          <Box sx={{ marginTop: "10px" }}>
+          <div sx={{ marginTop: "10px" }}>
             <div
               style={{
                 display: "flex",
@@ -283,10 +282,10 @@ export default function Home() {
 
               <span>Discount %</span>
             </div>
-          </Box>
+          </div>
           {myDiscount.map((elem, idx) => {
             return (
-              <Box sx={{ marginTop: "5px" }} key={idx}>
+              <div sx={{ marginTop: "5px" }} key={idx}>
                 <div
                   style={{
                     display: "flex",
@@ -300,10 +299,10 @@ export default function Home() {
                   </div>
                   <span>{elem.discountPercent}</span>
                 </div>
-              </Box>
+              </div>
             );
           })}
-        </Box>
+        </div>
       </div>
     </div>
   );

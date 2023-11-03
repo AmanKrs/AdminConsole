@@ -43,7 +43,6 @@ export default function EditProduct() {
         navigate("/productlist");
       }
     } catch (e) {
-
       if (e.response.status == 403) {
         alert("Error deleting product value");
       } else {

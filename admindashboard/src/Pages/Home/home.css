@@ -1,5 +1,5 @@
 .dash-head {
-  padding: 25px;
+  padding: 10px;
   height: 150px;
   display: flex;
   border-radius: 10px;
@@ -11,7 +11,7 @@
   background-color: #363434;
 }
 .dash-head-item {
-  padding-left: 25px;
+  padding-left: 35px;
   border-right: 1px solid #e8e8e8;
   width: 25%;
 }
@@ -93,7 +93,6 @@
 .dash-content-side {
   width: 25%;
   padding: 2px;
-
   border-radius: 10px;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
@@ -109,4 +108,120 @@
 
 .recharts-tooltip-wrapper {
   color: black !important;
+}
+
+/* Responsive CSS */
+
+@media only screen and (max-width: 480px) {
+  .dash-head {
+    width: 90vw;
+    padding: 10px;
+    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    height: 130px;
+  }
+  .dash-head-item {
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+  }
+  .value {
+    font-size: 14px;
+  }
+  .date {
+    font-size: 10px;
+  }
+  .revtitle {
+    margin-left: 6px;
+    font-size: 14px;
+  }
+  .dash-content {
+    height: auto;
+    width: 90vw;
+    margin-top: 25px;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .dash-content-main {
+    width: 90vw;
+  }
+  .dash-content-side {
+    width: 90vw;
+    padding: 10px;
+  }
+ 
+  .MuiButtonBase-root {
+    font-size: 10px !important;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 680px) {
+  .dash-head {
+    width: 90vw;
+    padding: 10px;
+    font-size: 14px;
+    height: 130px;
+  }
+  .dash-head-item {
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+  }
+  .value {
+    font-size: 16px;
+  }
+  .date {
+    font-size: 10px;
+  }
+  .revtitle {
+    margin-left: 8px;
+    font-size: 14px;
+  }
+  .dash-content {
+    height: auto;
+    width: 90vw;
+    margin-top: 25px;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .dash-content-main {
+    width: 90vw;
+  }
+  .dash-content-side {
+    width: 90vw;
+    padding: 10px;
+  }
+}
+@media only screen and (min-width: 380px) and (max-width: 500px) {
+  .revtitle {
+    margin-left: 0px;
+    font-size: 10px;
+    padding-right: 3px;
+  }
+}
+@media only screen and (min-width: 680px) and (max-width: 880px) {
+  .dash-head {
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    font-size: 14px;
+  }
+  .dash-head-item {
+    margin: 0px;
+    padding: 0px;
+    padding-left: 20px;
+  }
+  .value {
+    font-size: 18px;
+  }
+  .date {
+    font-size: 10px;
+  }
+  .revtitle {
+    margin-left: 8px;
+    font-size: 16px;
+  }
 }

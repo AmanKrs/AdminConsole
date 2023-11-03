@@ -72,8 +72,9 @@
   }
   .search-Icon {
     display: block;
-    border-radius: 50%;
-    background-color: beige;
+    border-radius: 100%;
+    padding: 5px;
+    background-color: rgb(17, 17, 17);
     display: flex;
     align-items: center;
   }
@@ -83,11 +84,8 @@
   .usernav {
     display: none;
   }
-  .usernavIcon {
-    display: block;
-  }
 }
-@media only screen and (min-width: 480px) and (max-width: 680px) {
+@media only screen and (min-width: 480px) and (max-width: 840px) {
   .head-container {
     justify-content: space-between;
   }
@@ -106,5 +104,11 @@
     width: 40%;
     height: 30px;
     margin-right: 20px;
+  }
+}
+@media only screen and (min-width: 480px) and (max-width: 840px) {
+  .usernavIcon {
+    display: block;
+    padding-right: 15px;
   }
 }

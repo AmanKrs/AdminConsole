@@ -1,63 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
-import { decodeToken } from "react-jwt";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import "./header.css";
-import { useNavigate } from "react-router-dom";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import UserCard from "../UserCard/UserCard";
+import { useNavigate } from "react-router-dom";
 
 export default function Header(props) {
   const { setSearchItem, enableSidenav, setEnableSidenav } = props;
-  const [userInfo, setUserInfo] = useState({});
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const open = Boolean(anchorEl);
 
   const navigate = useNavigate();
 
+  const handleAccount = () => {
+    navigate("/orderlist");
+  };
   const handleSearch = (e) => {
     setSearchItem(e.target.value);
   };
 
-  const handleMoreOption = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
-
-  const handleCloseOption = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/register");
-    window.location.reload(true);
-  };
-
-  const handleAccount = () => {
-    
-    navigate("/orderlist");
-    setAnchorEl(null);
-  };
-
   const handleSidenav = () => {
- 
     setEnableSidenav(!enableSidenav);
   };
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const data = decodeToken(token);
-    setUserInfo(data);
-  }, []);
 
   return (
     <div>
       <nav className="head-container">
         <div className="head">
           <div className="enablemenu" onClick={handleSidenav}>
-            <MenuRoundedIcon />
+            {enableSidenav ? <CloseRoundedIcon />:<MenuRoundedIcon /> }
           </div>
           <h1>DashBoard</h1>
         </div>
@@ -70,39 +41,10 @@ export default function Header(props) {
         <div className="search-Icon">
           <SearchOutlinedIcon style={{ fontSize: "30px" }} />
         </div>
-        <div className="usernavIcon">
+        <div className="usernavIcon" onClick={handleAccount}>
           <Avatar style={{ marginLeft: "5px" }}></Avatar>
         </div>
-        <div className="usernav">
-          <Avatar style={{ marginLeft: "5px" }} className="useravtar"></Avatar>
-          <div className="usernav-details">
-            <p>
-              {userInfo.firstName}&nbsp;{userInfo.lastName}
-            </p>
-            <p>{userInfo.email}</p>
-          </div>
-
-          <MoreVertIcon
-            className="moreOption"
-            onClick={handleMoreOption}
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-          ></MoreVertIcon>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleCloseOption}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={handleAccount}>My account</MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
-          </Menu>
-        </div>
+        <UserCard />
       </nav>
     </div>
   );

@@ -23,7 +23,7 @@
   justify-content: center;
   gap: 2px;
 }
-.navtitle{
+.navtitle {
   font-size: 16px;
 }
 .nav-sub-items {
@@ -46,3 +46,14 @@ a {
   transform: rotate(180deg);
 }
 
+.usersideinfo {
+  position: absolute;
+  margin-bottom: 20px;
+  bottom: 0;
+  z-index: 322;
+}
+@media only screen and (min-width: 840px) {
+  .usersideinfo {
+    display: none;
+  }
+}

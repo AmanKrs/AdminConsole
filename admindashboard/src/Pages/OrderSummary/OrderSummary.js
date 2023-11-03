@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import "./ordersummary.css";
-import card from "../../favicon.ico";
+import card from "../../assets/card.svg";
 import { useLocation } from "react-router-dom";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -11,18 +11,18 @@ export default function OrderSummary() {
   const { state } = data;
 
   const downloadInvoice = () => {
-   // document.getElementById("myinvoice").style.display = "block";
+    // document.getElementById("myinvoice").style.display = "block";
     html2canvas(document.getElementById("invoice"), {
       scale: 1,
-    }).then((canvas) => {
-      var imgData = canvas.toDataURL("image/png");
-      var doc = new jsPDF();
-      doc.addImage(imgData, "PNG", 10, 10);
-      doc.save("invoice.pdf");
-     // document.getElementById("myinvoice").style.display = "none";
-    }).catch((e) => {
-      
-    });
+    })
+      .then((canvas) => {
+        var imgData = canvas.toDataURL("image/png");
+        var doc = new jsPDF();
+        doc.addImage(imgData, "PNG", 10, 10);
+        doc.save("invoice.pdf");
+        // document.getElementById("myinvoice").style.display = "none";
+      })
+      .catch((e) => {});
 
     // html2canvas(document.getElementById("summary"), {
     //   // width: 1440,
@@ -36,24 +36,13 @@ export default function OrderSummary() {
     // }).catch((e) => {
     //   console.error(e.message); // "oh, no!"
     // });
-  }
-
-
-
+  };
 
   return (
     <div>
       <h2 style={{ color: "#6e39cb" }}>Order Summary </h2>
       <div className="ordersummary-container">
-        <Box
-          sx={{
-            width: "100%",
-            height: "auto",
-            background: "#fff",
-            margin: "0 auto",
-            borderRadius: "5px",
-          }}
-        >
+       
           <div>
             <Box className="orderDetailBox">
               <div>
@@ -72,10 +61,7 @@ export default function OrderSummary() {
                 </p>
               </div>
               <div>
-                <button
-                  className="invoice-btn"
-                  onClick={downloadInvoice}
-                >
+                <button className="invoice-btn" onClick={downloadInvoice}>
                   Invoice
                 </button>
               </div>
@@ -105,11 +91,10 @@ export default function OrderSummary() {
                 </div>
               </Box>
             </Box>
-            <Box  id="invoice" className="BillBox">
+            <Box id="invoice" className="BillBox">
               <h3>Billing Information Details</h3>
 
               <Box
-                
                 sx={{
                   border: "1px solid #e8e8e8",
                   width: "100%",
@@ -134,29 +119,20 @@ export default function OrderSummary() {
           </div>
 
           <div className="DetailBox">
-            <Box className="ProdBox">
+            <div className="ProdBox">
               <h3 style={{ marginTop: "0", textAlign: "left" }}>
                 Payment Detail
               </h3>
-              <Box
-                sx={{
-                  border: "1px solid #e8e8e8",
-                  width: "100%",
-                  height: "200px",
-                  borderRadius: "10px",
-                  padding: "20px",
-                  boxSizing: "border-box",
-                }}
-              >
+              <div className="carddetails">
                 Master Card
                 <p>Master 1234****4758</p>
                 <p>Expires 22/23</p>
-                <p>
-                  <span style={{ paddingRight: "250px" }}>Aiden Max</span>{" "}
+                <div className="cardowner">
+                  <span>Aiden Max</span>
                   <img src={card}></img>
-                </p>
-              </Box>
-            </Box>
+                </div>
+              </div>
+            </div>
             <Box className="BillBox">
               <h3 style={{ marginTop: "0" }}>Order Summary</h3>
               <Box
@@ -169,22 +145,14 @@ export default function OrderSummary() {
                   padding: "20px",
                   boxSizing: "border-box",
                   display: "flex",
+                  gap: "10px",
                 }}
               >
                 <div className="summary">
-                  {state.Revenue}
-                  <p>
-                    Product Price: <span>$200</span>
-                  </p>
-                  <p>
-                    Product Price: <span>$200</span>
-                  </p>
-                  <p>
-                    Product Price: <span>$200</span>
-                  </p>
-                  <p>
-                    Total: <span>$230</span>
-                  </p>
+                  <h6>{state.Revenue}</h6>
+                  <p>Product1 Price: $200</p>
+                  <p>Product2 Price: $30</p>
+                  <p>Total:$230</p>
                 </div>
                 <div className="rating">
                   <p>Did you like the product? Leave us a review here</p>
@@ -194,7 +162,7 @@ export default function OrderSummary() {
               </Box>
             </Box>
           </div>
-        </Box>
+        
       </div>
     </div>
   );

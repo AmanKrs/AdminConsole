@@ -68,7 +68,6 @@ export default function OrderList() {
     getProducts();
   });
 
-
   let pageNo = Math.ceil(product.length / itemsPerPage);
   let endIndex = currentIndex * itemsPerPage;
   var displayProduct = product.slice(
@@ -82,7 +81,6 @@ export default function OrderList() {
   };
 
   const handlePageNxt = () => {
-   
     if (currentIndex < pageNo) {
       setCurrentIndex(currentIndex + 1);
     }
@@ -147,7 +145,6 @@ export default function OrderList() {
                     }}
                   >
                     <TableCell component="th" scope="row">
-                      
                       {row.Customer}
                     </TableCell>
                     <TableCell align="left">{row.Product}</TableCell>

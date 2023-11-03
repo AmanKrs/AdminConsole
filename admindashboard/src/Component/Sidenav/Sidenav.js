@@ -3,6 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import "./sidenav.css";
 import { NavLink } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import UserCard from "../UserCard/UserCard";
 
 export default function Sidenav() {
   const [isExpanded, setExpanded] = useState(false);
@@ -67,7 +68,7 @@ export default function Sidenav() {
       <ul className="nav-item">
         <li className="nav-item-li">
           <div className="nav-item-span" onClick={handleExpand2}>
-          <div className="navIcon">
+            <div className="navIcon">
               <HomeIcon style={{ width: "30px", height: "20px" }} />
               <span className="navtitle">Product</span>
             </div>
@@ -108,6 +109,10 @@ export default function Sidenav() {
           </ul>
         </li>
       </ul>
+      
+      <footer className="usersideinfo">
+        <UserCard />
+      </footer>
     </div>
   );
 }
